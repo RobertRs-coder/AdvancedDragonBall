@@ -1,11 +1,13 @@
-package com.advanced.advanceddragonball
+package com.advanced.advanceddragonball.ui.herolist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.advanced.advanceddragonball.R
 import com.advanced.advanceddragonball.databinding.ItemListBinding
+import com.advanced.advanceddragonball.domain.Hero
 
 class HeroListAdapter: ListAdapter<Hero, HeroListAdapter.HeroViewHolder>(HeroItemDiffCallback()) {
 

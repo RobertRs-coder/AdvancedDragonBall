@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.advanced.advanceddragonball.HeroListFragment"
+        android:name="com.advanced.advanceddragonball.ui.herolist.HeroListFragment"
         android:label="@string/hero_list_fragment_label"
         tools:layout="@layout/fragment_hero_list">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.advanced.advanceddragonball.DetailFragment"
+        android:name="com.advanced.advanceddragonball.ui.detail.DetailFragment"
         android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_detail">
 
