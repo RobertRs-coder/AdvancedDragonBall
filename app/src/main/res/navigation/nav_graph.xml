@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.advanced.advanceddragonball.HeroListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/hero_list_fragment_label"
         tools:layout="@layout/fragment_hero_list">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.advanced.advanceddragonball.DetailFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_detail">
 
         <action
