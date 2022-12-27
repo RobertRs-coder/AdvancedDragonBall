@@ -42,7 +42,7 @@ class HeroListFragment : Fragment() {
             adapter.submitList(getHeroes(1000))
 
             fab.setOnClickListener {
-                viewModel.tareaCostosa()
+//                viewModel.tareaCostosa()
             }
         }
 
@@ -58,7 +58,7 @@ class HeroListFragment : Fragment() {
         val heroes = mutableListOf<Hero>()
 
         for (i in 0 .. size) {
-            heroes.add(Hero("Hero $i",UUID.randomUUID().toString()))
+//            heroes.add(Hero("Hero $i",UUID.randomUUID().toString()))
         }
 
         return heroes
