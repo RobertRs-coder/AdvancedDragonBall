@@ -12,9 +12,7 @@ import com.advanced.advanceddragonball.domain.Hero
 import java.util.UUID
 
 class HeroListFragment : Fragment() {
-
     private var _binding: FragmentHeroListBinding? = null
-
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,28 +37,18 @@ class HeroListFragment : Fragment() {
         with(binding) {
             heroList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             heroList.adapter = adapter
-            adapter.submitList(getHeroes(1000))
 
-            fab.setOnClickListener {
-//                viewModel.tareaCostosa()
+            viewModel.heroes.observe(viewLifecycleOwner) {heroList ->
+                adapter.submitList(heroList)
             }
-        }
 
+            viewModel.getHeroes()
+        }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun getHeroes(size: Int): List<Hero> {
-        val heroes = mutableListOf<Hero>()
-
-        for (i in 0 .. size) {
-//            heroes.add(Hero("Hero $i",UUID.randomUUID().toString()))
-        }
-
-        return heroes
     }
 }

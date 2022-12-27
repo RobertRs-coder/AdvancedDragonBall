@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.data.remote
 
+import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
 import com.squareup.moshi.Moshi
@@ -24,6 +25,6 @@ class RemoteDataSource {
         return api.getBootcamps()
     }
     suspend fun getHeroes(): List<Hero> {
-        return api.getHeros()
+        return api.getHeros(HeroRequest())
     }
 }
