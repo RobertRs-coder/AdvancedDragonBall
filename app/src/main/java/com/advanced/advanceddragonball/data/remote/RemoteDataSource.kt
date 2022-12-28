@@ -12,6 +12,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class RemoteDataSource {
 
+    companion object {
+        const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InByaXZhdGUifQ.eyJleHBpcmF0aW9uIjo2NDA5MjIxMTIwMCwiaWRlbnRpZnkiOiIyNjBENjk3My00Njc0LTQyRDQtQjUxRi00MjYwRTBBMUJCOUYiLCJlbWFpbCI6InJyb2pvLnZhQGdtYWlsLmNvbSJ9.lQOqPIfkP0_GJs8lik1PmfacpoQcyDxy3NGJGeflOEc"
+    }
     private val moshi = Moshi.Builder()
         .addLast(KotlinJsonAdapterFactory())
         .build()
@@ -21,7 +24,19 @@ class RemoteDataSource {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-    private val okHttpClient = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
+    //Change header with token
+    private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val originalRequest = chain.request()
+
+            val newRequest = originalRequest.newBuilder()
+                .header("Authorization", "Bearer $TOKEN")
+                .build()
+
+            chain.proceed(newRequest)
+        }
+        .addInterceptor(httpLoggingInterceptor)
+        .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://dragonball.keepcoding.education/")
