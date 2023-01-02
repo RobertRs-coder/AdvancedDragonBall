@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.ui.herolist
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,5 +45,9 @@ class HeroListViewModel: ViewModel() {
             _heroes.value = heroes
             Log.d(TAG, heroes.toString())
         }
+    }
+
+    fun initDatabase(context: Context) {
+        repository.initLocalDatabase(context)
     }
 }

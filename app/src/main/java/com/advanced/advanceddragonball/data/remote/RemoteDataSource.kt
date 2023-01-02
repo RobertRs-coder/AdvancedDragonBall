@@ -1,8 +1,8 @@
 package com.advanced.advanceddragonball.data.remote
 
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
+import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Bootcamp
-import com.advanced.advanceddragonball.domain.Hero
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -42,7 +42,7 @@ class RemoteDataSource {
     suspend fun getBootcamps(): List<Bootcamp> {
         return api.getBootcamps()
     }
-    suspend fun getHeroes(): List<Hero> {
+    suspend fun getHeroes(): List<HeroRemote> {
         return api.getHeros(HeroRequest())
     }
 }

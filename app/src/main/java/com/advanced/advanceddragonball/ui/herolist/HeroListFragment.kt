@@ -25,7 +25,7 @@ class HeroListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentHeroListBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,6 +43,8 @@ class HeroListFragment : Fragment() {
             }
 
             viewModel.getHeroes()
+            // Init database from viewModel
+            viewModel.initDatabase(requireContext())
         }
 
     }
