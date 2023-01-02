@@ -26,19 +26,20 @@ class RemoteDataSource {
 
     //Change header with token
     private val okHttpClient = OkHttpClient.Builder()
-//        .addInterceptor { chain ->
-//            val originalRequest = chain.request()
-//
-//            val newRequest = originalRequest.newBuilder()
+        .addInterceptor { chain ->
+            val originalRequest = chain.request()
+
+            val newRequest = originalRequest.newBuilder()
 //                .header("Authorization", "Bearer $TOKEN")
-//                .build()
-//
-//            chain.proceed(newRequest)
-//        }
+                .header("Content-type", "application/json")
+                .build()
+
+            chain.proceed(newRequest)
+        }
         .authenticator { _, response ->
             response.request.newBuilder().header("Authorization", "Bearer $TOKEN").build()
         }
-//        .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(httpLoggingInterceptor)
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
