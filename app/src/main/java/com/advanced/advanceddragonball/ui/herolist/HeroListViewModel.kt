@@ -40,7 +40,7 @@ class HeroListViewModel: ViewModel() {
     fun getHeroes() {
         viewModelScope.launch {
             val heroes = withContext(Dispatchers.IO) {
-                repository.getHeroes()
+                repository.getHeroesWithCache()
             }
             _heroes.value = heroes
             Log.d(TAG, heroes.toString())

@@ -43,6 +43,6 @@ class RemoteDataSource {
         return api.getBootcamps()
     }
     suspend fun getHeroes(): List<HeroRemote> {
-        return api.getHeros(HeroRequest())
+        return api.getHeroes(HeroRequest())
     }
 }

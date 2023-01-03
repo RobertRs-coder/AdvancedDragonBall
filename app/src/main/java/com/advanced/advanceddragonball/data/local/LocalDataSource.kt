@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.advanced.advanceddragonball.data.local.model.HeroLocal
 
 class LocalDataSource {
 
@@ -23,5 +24,13 @@ class LocalDataSource {
             .build()
 
         dao = db.getDao()
+    }
+
+    fun getHeroes(): List<HeroLocal> {
+        return dao.getAllHeroes()
+    }
+
+    fun insertHeroes(remoteHeroes: List<HeroLocal>) {
+         dao.insertAll(remoteHeroes)
     }
 }

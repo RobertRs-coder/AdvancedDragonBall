@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.advanced.advanceddragonball.databinding.FragmentHeroListBinding
-import com.advanced.advanceddragonball.domain.Hero
-import java.util.UUID
 
 class HeroListFragment : Fragment() {
     private var _binding: FragmentHeroListBinding? = null
@@ -42,9 +40,11 @@ class HeroListFragment : Fragment() {
                 adapter.submitList(heroList)
             }
 
-            viewModel.getHeroes()
             // Init database from viewModel
             viewModel.initDatabase(requireContext())
+            // Get heroes from viewModel
+            viewModel.getHeroes()
+
         }
 
     }

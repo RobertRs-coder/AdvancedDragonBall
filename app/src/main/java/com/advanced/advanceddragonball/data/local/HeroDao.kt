@@ -12,5 +12,8 @@ interface HeroDao {
     fun getAllHeroes(): List<HeroLocal>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg hero: HeroLocal)
+    fun insertAll(superHero: List<HeroLocal>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertSuperhero(superHero: HeroLocal)
 }

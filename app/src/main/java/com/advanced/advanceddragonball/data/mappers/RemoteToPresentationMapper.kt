@@ -4,11 +4,11 @@ import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Hero
 
 class RemoteToPresentationMapper {
-    fun map(heroList: List<HeroRemote>): List<Hero> {
-        return heroList.map {map(it) }
+    fun map(heroRemoteList: List<HeroRemote>): List<Hero> {
+        return heroRemoteList.map {map(it) }
     }
 
-    fun map(hero: HeroRemote): Hero {
-        return Hero(hero.id, hero.name, hero.photo)
+    private fun map(heroRemote: HeroRemote): Hero {
+        return Hero(heroRemote.id, heroRemote.name, heroRemote.photo)
     }
 }
