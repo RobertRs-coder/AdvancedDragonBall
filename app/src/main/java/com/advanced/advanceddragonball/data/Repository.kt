@@ -9,15 +9,13 @@ import com.advanced.advanceddragonball.data.remote.RemoteDataSource
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
 
-class Repository {
+abstract class Repository(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource) {
 
-    private val remoteDataSource = RemoteDataSource()
-    private val localDataSource = LocalDataSource()
+    private val remoteDataSource: RemoteDataSource
+    private val localDataSource: LocalDataSource
     private val remoteToPresentationMapper = RemoteToPresentationMapper()
     private val remoteToLocalMapper = RemoteToLocalMapper()
     private val localToPresentationMapper = LocalToPresentationMapper()
-
-
 
     suspend fun getBootcamps(): List<Bootcamp> {
         return remoteDataSource.getBootcamps()
@@ -44,4 +42,5 @@ class Repository {
     fun initLocalDatabase(context: Context) {
         localDataSource.initDatabase(context)
     }
+
 }

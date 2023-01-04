@@ -7,16 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.advanced.advanceddragonball.data.Repository
-import com.advanced.advanceddragonball.domain.Bootcamp
+import com.advanced.advanceddragonball.data.local.LocalDataSource
+import com.advanced.advanceddragonball.data.remote.RemoteDataSource
 import com.advanced.advanceddragonball.domain.Hero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.concurrent.thread
 
 class HeroListViewModel: ViewModel() {
 
-    private val repository = Repository()
+    private val repository = Repository(RemoteDataSource(), LocalDataSource())
 
     private val _heroes = MutableLiveData<List<Hero>>()
 
@@ -38,6 +38,16 @@ class HeroListViewModel: ViewModel() {
     }
 
     fun getHeroes() {
+        viewModelScope.launch {
+            val heroes = withContext(Dispatchers.IO) {
+                repository.getHeroesWithCache()
+            }
+            _heroes.value = heroes
+            Log.d(TAG, heroes.toString())
+        }
+    }
+
+    fun getLocalHeroes() {
         viewModelScope.launch {
             val heroes = withContext(Dispatchers.IO) {
                 repository.getHeroesWithCache()
