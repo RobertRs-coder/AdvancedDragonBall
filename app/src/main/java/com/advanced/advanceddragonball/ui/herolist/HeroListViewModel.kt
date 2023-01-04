@@ -7,8 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.advanced.advanceddragonball.data.Repository
-import com.advanced.advanceddragonball.data.local.LocalDataSource
-import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.local.LocalDataSourceImpl
 import com.advanced.advanceddragonball.domain.Hero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 class HeroListViewModel: ViewModel() {
 
-    private val repository = Repository(RemoteDataSource(), LocalDataSource())
+    private val repository = Repository(LocalDataSourceImpl())
 
     private val _heroes = MutableLiveData<List<Hero>>()
 

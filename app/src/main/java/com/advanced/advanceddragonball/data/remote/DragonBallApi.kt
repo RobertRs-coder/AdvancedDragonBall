@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface DragonBallAPI {
+interface DragonBallApi {
 
     @GET("api/data/bootcamps")
     suspend fun getBootcamps(): List<Bootcamp>

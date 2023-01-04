@@ -1,29 +1,29 @@
 package com.advanced.advanceddragonball.data
 
-import android.content.Context
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
 
-abstract class Repository(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource) {
-
-    private val remoteDataSource: RemoteDataSource
-    private val localDataSource: LocalDataSource
-    private val remoteToPresentationMapper = RemoteToPresentationMapper()
-    private val remoteToLocalMapper = RemoteToLocalMapper()
-    private val localToPresentationMapper = LocalToPresentationMapper()
+class Repository(
+    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: RemoteDataSource,
+    private val remoteToPresentationMapper: RemoteToPresentationMapper,
+    private val remoteToLocalMapper: RemoteToLocalMapper,
+    private val localToPresentationMapper: LocalToPresentationMapper
+    ) {
 
     suspend fun getBootcamps(): List<Bootcamp> {
         return remoteDataSource.getBootcamps()
     }
-
-    suspend fun getHeroes(): List<Hero> {
-        return remoteToPresentationMapper.map(remoteDataSource.getHeroes())
-    }
+////     Note: This method isn't use anymore
+//    suspend fun getHeroes(): List<Hero> {
+//        return remoteToPresentationMapper.map(remoteDataSource.getHeroes())
+//    }
 
     suspend fun getHeroesWithCache(): List<Hero> {
         //TODO-1:Get data from local
@@ -38,9 +38,8 @@ abstract class Repository(remoteDataSource: RemoteDataSource, localDataSource: L
         //TODO-4: Return local from data
         return localToPresentationMapper.map(localDataSource.getHeroes())
     }
-
-    fun initLocalDatabase(context: Context) {
-        localDataSource.initDatabase(context)
-    }
-
+//// Note: This method should be in other place -> Context problem
+//    fun initLocalDatabase(context: Context) {
+//        localDataSource.initDatabase(context)
+//    }
 }

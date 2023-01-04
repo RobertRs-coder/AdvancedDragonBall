@@ -1,6 +1,5 @@
 package com.advanced.advanceddragonball.data.local
 
-import android.content.Context
 import com.advanced.advanceddragonball.data.local.model.HeroLocal
 
 class LocalDataSourceImpl(private val dao: HeroDao): LocalDataSource {
