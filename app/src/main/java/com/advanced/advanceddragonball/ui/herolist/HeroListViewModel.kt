@@ -1,6 +1,5 @@
 package com.advanced.advanceddragonball.ui.herolist
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HeroListViewModel(private val repository: Repository): ViewModel() {
-//    private val repository = Repository(LocalDataSourceImpl())
     private val _heroes = MutableLiveData<List<Hero>>()
 
     val heroes: LiveData<List<Hero>>
@@ -43,8 +41,4 @@ class HeroListViewModel(private val repository: Repository): ViewModel() {
             Log.d(TAG, heroes.toString())
         }
     }
-//Note: This method should be in the Activity
-//    fun initDatabase(context: Context) {
-//        repository.initLocalDatabase(context)
-//    }
 }
