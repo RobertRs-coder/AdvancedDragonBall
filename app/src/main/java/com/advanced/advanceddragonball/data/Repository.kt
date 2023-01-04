@@ -20,15 +20,11 @@ class Repository(
     suspend fun getBootcamps(): List<Bootcamp> {
         return remoteDataSource.getBootcamps()
     }
-////     Note: This method isn't use anymore
-//    suspend fun getHeroes(): List<Hero> {
-//        return remoteToPresentationMapper.map(remoteDataSource.getHeroes())
-//    }
 
     suspend fun getHeroesWithCache(): List<Hero> {
         //TODO-1:Get data from local
         val localHeroes = localDataSource.getHeroes()
-        //TODO-2:Check if there is data
+        //TODO-2:Check if there isn't data
         if(localHeroes.isEmpty()) {
             //TODO-3a:Get data from remote
             val remoteHeroes = remoteDataSource.getHeroes()
@@ -38,8 +34,4 @@ class Repository(
         //TODO-4: Return local from data
         return localToPresentationMapper.map(localDataSource.getHeroes())
     }
-//// Note: This method should be in other place -> Context problem
-//    fun initLocalDatabase(context: Context) {
-//        localDataSource.initDatabase(context)
-//    }
 }
