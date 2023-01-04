@@ -12,7 +12,7 @@ import com.advanced.advanceddragonball.domain.Hero
 class Repository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
-    private val remoteToPresentationMapper: RemoteToPresentationMapper,
+//    private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
     private val localToPresentationMapper: LocalToPresentationMapper
     ) {
