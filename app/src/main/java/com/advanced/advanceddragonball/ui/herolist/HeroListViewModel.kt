@@ -2,6 +2,7 @@ package com.advanced.advanceddragonball.ui.herolist
 
 import android.app.Application
 import android.util.Log
+import androidx.annotation.ReturnThis
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -17,6 +18,7 @@ import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.DragonBallApi
 import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
+import com.advanced.advanceddragonball.di.LocalModule
 
 
 import com.advanced.advanceddragonball.domain.Hero
@@ -51,13 +53,9 @@ class HeroListViewModel @Inject constructor(
             initializer {
                 val application = this[APPLICATION_KEY] as Application
 
-                val db = Room.databaseBuilder(
-                    application,
-                    HeroDatabase::class.java, "database-name"
-                )
-                    .build()
+                val database = LocalModule.provideDatabase()
 
-                val dao = db.getDao()
+                val dao = LocalModule.provideDao(database)
 
                 val localDataSource = LocalDataSourceImpl(dao)
 
