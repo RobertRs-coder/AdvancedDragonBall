@@ -1,8 +1,9 @@
 package com.advanced.advanceddragonball.data.local
 
 import com.advanced.advanceddragonball.data.local.model.HeroLocal
+import javax.inject.Inject
 
-class LocalDataSourceImpl(private val dao: HeroDao): LocalDataSource {
+class LocalDataSourceImpl @Inject constructor(private val dao: HeroDao): LocalDataSource {
 
 //    private lateinit var dao: HeroDao
 

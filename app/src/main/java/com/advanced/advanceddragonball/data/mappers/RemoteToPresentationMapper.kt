@@ -2,8 +2,9 @@ package com.advanced.advanceddragonball.data.mappers
 
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Hero
+import javax.inject.Inject
 
-class RemoteToPresentationMapper {
+class RemoteToPresentationMapper @Inject constructor(){
     fun map(heroRemoteList: List<HeroRemote>): List<Hero> {
         return heroRemoteList.map {map(it) }
     }

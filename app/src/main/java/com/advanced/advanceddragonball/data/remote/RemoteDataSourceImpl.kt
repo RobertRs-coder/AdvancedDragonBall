@@ -3,8 +3,9 @@ package com.advanced.advanceddragonball.data.remote
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Bootcamp
+import javax.inject.Inject
 
-class RemoteDataSourceImpl(private val api: DragonBallApi): RemoteDataSource {
+class RemoteDataSourceImpl @Inject constructor(private val api: DragonBallApi): RemoteDataSource {
 
     override suspend fun getBootcamps(): List<Bootcamp> {
         return api.getBootcamps()

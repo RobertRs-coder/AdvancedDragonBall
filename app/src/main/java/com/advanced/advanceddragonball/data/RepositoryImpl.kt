@@ -1,16 +1,19 @@
 package com.advanced.advanceddragonball.data
 
 import com.advanced.advanceddragonball.data.local.LocalDataSource
+import com.advanced.advanceddragonball.data.local.LocalDataSourceImpl
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
+import javax.inject.Inject
 
-class RepositoryImpl(
-    private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource,
+class RepositoryImpl @Inject constructor(
+    private val localDataSource: LocalDataSourceImpl,
+    private val remoteDataSource: RemoteDataSourceImpl,
 //    private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
     private val localToPresentationMapper: LocalToPresentationMapper
