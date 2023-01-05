@@ -10,7 +10,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.advanced.advanceddragonball.R
 import com.advanced.advanceddragonball.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

@@ -22,6 +22,7 @@ import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
 import com.advanced.advanceddragonball.domain.Hero
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,11 +30,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Inject
 
-class HeroListViewModel(
-    private val repository: Repository)
-
-    : ViewModel() {
+@HiltViewModel
+class HeroListViewModel @Inject constructor(
+    private val repository: Repository
+    ) : ViewModel() {
 
     private val _heroes = MutableLiveData<List<Hero>>()
 

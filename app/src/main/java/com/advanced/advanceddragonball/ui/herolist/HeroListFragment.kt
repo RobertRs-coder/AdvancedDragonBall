@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.advanced.advanceddragonball.databinding.FragmentHeroListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HeroListFragment : Fragment() {
     private var _binding: FragmentHeroListBinding? = null
 
