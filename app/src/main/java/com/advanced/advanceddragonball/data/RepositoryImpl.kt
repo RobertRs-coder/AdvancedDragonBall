@@ -12,8 +12,8 @@ import com.advanced.advanceddragonball.domain.Hero
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val localDataSource: LocalDataSourceImpl,
-    private val remoteDataSource: RemoteDataSourceImpl,
+    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: RemoteDataSource,
 //    private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
     private val localToPresentationMapper: LocalToPresentationMapper

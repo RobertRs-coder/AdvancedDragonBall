@@ -1,6 +1,5 @@
 package com.advanced.advanceddragonball.di
 
-import android.preference.Preference
 import com.advanced.advanceddragonball.data.remote.DragonBallApi
 import com.advanced.advanceddragonball.ui.herolist.HeroListViewModel
 import com.squareup.moshi.Moshi
@@ -13,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -41,7 +39,7 @@ object RemoteModule {
             }
             .authenticator { _, response ->
 //                // Practica --> endpoint login vacio
-//                response.request.newBuilder().header("Authorization", "Bearer ${dataStore.gettoken()}").build()
+//                response.request.newBuilder().header("Authorization", "Bearer ${dataStore.getToken()}").build()
                 response.request.newBuilder().header("Authorization", "Bearer ${HeroListViewModel.TOKEN}").build()
             }
             .addInterceptor(httpLoggingInterceptor)

@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeroListViewModel @Inject constructor(
-    private val repository: RepositoryImpl
+    private val repository: Repository
     ) : ViewModel() {
 
     private val _heroes = MutableLiveData<List<Hero>>()
