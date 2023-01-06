@@ -20,7 +20,7 @@ class HeroListFragment : Fragment() {
 
     private val adapter = HeroListAdapter()
 
-    private val viewModel: HeroListViewModel by viewModels{ HeroListViewModel.Factory }
+    private val viewModel: HeroListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +41,7 @@ class HeroListFragment : Fragment() {
             viewModel.heroes.observe(viewLifecycleOwner) {heroList ->
                 adapter.submitList(heroList)
             }
-
-//            // Init database from viewModel -> Not it isn't use it
-//            viewModel.initDatabase(requireContext())
-            // Get heroes from viewModel
             viewModel.getHeroes()
-
         }
 
     }

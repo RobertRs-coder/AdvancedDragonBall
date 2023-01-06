@@ -8,10 +8,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(Singleton::class)
+@InstallIn(SingletonComponent::class)
 object LocalModule {
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): HeroDatabase {
@@ -20,7 +21,7 @@ object LocalModule {
             HeroDatabase::class.java, "database-name"
         ).build()
     }
-
+    @Provides
     fun provideDao(database: HeroDatabase): HeroDao {
         return database.getDao()
     }
