@@ -7,6 +7,7 @@ import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
+import com.advanced.advanceddragonball.domain.Repository
 import retrofit2.HttpException
 import javax.inject.Inject
 

@@ -1,8 +1,7 @@
-package com.advanced.advanceddragonball.data
+package com.advanced.advanceddragonball.domain
 
 
-import com.advanced.advanceddragonball.domain.Bootcamp
-import com.advanced.advanceddragonball.domain.Hero
+import com.advanced.advanceddragonball.data.HeroListState
 
 interface Repository{
     suspend fun getBootcamps(): List<Bootcamp>

@@ -1,38 +1,16 @@
 package com.advanced.advanceddragonball.ui.herolist
 
-import android.app.Application
 import android.util.Log
-import androidx.annotation.ReturnThis
 import androidx.lifecycle.*
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.room.Room
 import com.advanced.advanceddragonball.data.HeroListState
-import com.advanced.advanceddragonball.data.Repository
-import com.advanced.advanceddragonball.data.RepositoryImpl
-import com.advanced.advanceddragonball.data.local.HeroDatabase
-import com.advanced.advanceddragonball.data.local.LocalDataSourceImpl
-import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
-import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
-import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
-import com.advanced.advanceddragonball.data.remote.DragonBallApi
-import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
-import com.advanced.advanceddragonball.di.LocalModule
+import com.advanced.advanceddragonball.domain.Repository
 
 
 import com.advanced.advanceddragonball.domain.Hero
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
 @HiltViewModel
