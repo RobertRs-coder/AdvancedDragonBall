@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.room.Room
+import com.advanced.advanceddragonball.data.HeroListState
 import com.advanced.advanceddragonball.data.Repository
 import com.advanced.advanceddragonball.data.RepositoryImpl
 import com.advanced.advanceddragonball.data.local.HeroDatabase
@@ -40,9 +41,16 @@ class HeroListViewModel @Inject constructor(
     ) : ViewModel() {
 
     private val _heroes = MutableLiveData<List<Hero>>()
-
     val heroes: LiveData<List<Hero>>
         get() =_heroes
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() =_error
+
+    private val _state = MutableLiveData<HeroListState>()
+    val state: LiveData<HeroListState>
+        get() = _state
 
     companion object {
         const val TOKEN =
@@ -64,8 +72,17 @@ class HeroListViewModel @Inject constructor(
             val heroes = withContext(Dispatchers.IO) {
                 repository.getHeroesWithCache()
             }
-            _heroes.value = heroes
-            Log.d(TAG, heroes.toString())
+            _heroes.value =heroes
+        }
+    }
+
+    fun getHeroesWithException() {
+        viewModelScope.launch {
+            val heroListState = withContext(Dispatchers.IO) {
+                repository.getHeroesWithException()
+            }
+
+            _state.value = heroListState
         }
     }
 }

@@ -1,26 +1,29 @@
 package com.advanced.advanceddragonball.data
 
 import com.advanced.advanceddragonball.data.local.LocalDataSource
-import com.advanced.advanceddragonball.data.local.LocalDataSourceImpl
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
-import com.advanced.advanceddragonball.data.remote.RemoteDataSourceImpl
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
-//    private val remoteToPresentationMapper: RemoteToPresentationMapper,
+    private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
     private val localToPresentationMapper: LocalToPresentationMapper
     ) : Repository {
 
     override suspend fun getBootcamps(): List<Bootcamp> {
         return remoteDataSource.getBootcamps()
+    }
+
+    override suspend fun getHeroes(): List<Hero> {
+        return remoteToPresentationMapper.map(remoteDataSource.getHeroes())
     }
 
     override suspend fun getHeroesWithCache(): List<Hero> {
@@ -31,9 +34,30 @@ class RepositoryImpl @Inject constructor(
             //TODO-3a:Get data from remote
             val remoteHeroes = remoteDataSource.getHeroes()
             //TODO-3b:Save data to local
-            localDataSource.insertHeroes(remoteToLocalMapper.map(remoteHeroes))
+            localDataSource.run {
+                //TODO-3b:Save data to local
+                insertHeroes(remoteToLocalMapper.map(remoteHeroes))
+            }
         }
         //TODO-4: Return local from data
         return localToPresentationMapper.map(localDataSource.getHeroes())
+    }
+
+    override suspend fun getHeroesWithException(): HeroListState {
+        val result = remoteDataSource.getHeroesWithException()
+        return when {
+            result.isSuccess -> HeroListState.Success(remoteToPresentationMapper.map(result.getOrThrow()))
+            else -> {
+                when (val exception = result.exceptionOrNull()) {
+                    is HttpException -> HeroListState.NetworkFailure(
+                        exception.code()
+                    )
+                    else -> {
+                        HeroListState.Failure(
+                            result.exceptionOrNull()?.message)
+                    }
+                }
+            }
+        }
     }
 }

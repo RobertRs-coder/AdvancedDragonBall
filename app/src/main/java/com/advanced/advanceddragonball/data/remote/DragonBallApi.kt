@@ -13,6 +13,10 @@ interface DragonBallApi {
     suspend fun getBootcamps(): List<Bootcamp>
 
     @POST("api/heros/all")
-//    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InByaXZhdGUifQ.eyJleHBpcmF0aW9uIjo2NDA5MjIxMTIwMCwiaWRlbnRpZnkiOiIyNjBENjk3My00Njc0LTQyRDQtQjUxRi00MjYwRTBBMUJCOUYiLCJlbWFpbCI6InJyb2pvLnZhQGdtYWlsLmNvbSJ9.lQOqPIfkP0_GJs8lik1PmfacpoQcyDxy3NGJGeflOEc")
+//    @Headers("Authorization: Bearer ${TOKEN}
     suspend fun getHeroes(@Body heroRequest: HeroRequest): List<HeroRemote>
+
+    @POST("api/heros/all")
+//    @Headers("Authorization: Bearer ${TOKEN}
+    suspend fun getHeroesWithException(): List<HeroRemote>
 }

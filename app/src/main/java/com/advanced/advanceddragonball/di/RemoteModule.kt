@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.di
 
+import android.util.Log
 import com.advanced.advanceddragonball.data.remote.DragonBallApi
 import com.advanced.advanceddragonball.ui.herolist.HeroListViewModel
 import com.squareup.moshi.Moshi
@@ -8,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,7 +42,14 @@ object RemoteModule {
             .authenticator { _, response ->
 //                // Practica --> endpoint login vacio
 //                response.request.newBuilder().header("Authorization", "Bearer ${dataStore.getToken()}").build()
+                //See errors in the request
+                Log.d("Hola", "${response.request.url} ${response.code}")
+
                 response.request.newBuilder().header("Authorization", "Bearer ${HeroListViewModel.TOKEN}").build()
+
+//                //To login pass user & password inside the constructor and put into this function
+//                val credentials: String = Credentials.basic("username", "pass")
+//                response.request.newBuilder().header("Authorization", credentials).build()
             }
             .addInterceptor(httpLoggingInterceptor)
             .build()
@@ -58,7 +67,8 @@ object RemoteModule {
         return Retrofit.Builder()
             .baseUrl("https://dragonball.keepcoding.education/")
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+//            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
             .build()
     }
 

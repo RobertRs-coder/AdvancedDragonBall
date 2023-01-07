@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.advanced.advanceddragonball.data.HeroListState
 import com.advanced.advanceddragonball.databinding.FragmentHeroListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +43,24 @@ class HeroListFragment : Fragment() {
             viewModel.heroes.observe(viewLifecycleOwner) {heroList ->
                 adapter.submitList(heroList)
             }
+
+            viewModel.error.observe(viewLifecycleOwner) {error ->
+                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
+            }
+
+            viewModel.state.observe(viewLifecycleOwner){ state ->
+                when(state){
+                    is HeroListState.Failure -> {
+                        Toast.makeText(requireContext(), state.error, Toast.LENGTH_LONG).show()
+                    }
+                    is HeroListState.Success -> {
+                        adapter.submitList(state.heroes)
+                    }
+                    is HeroListState.NetworkFailure -> {
+                    }
+                }
+            }
+
             viewModel.getHeroes()
         }
 
