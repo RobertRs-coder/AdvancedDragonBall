@@ -1,6 +1,7 @@
 package com.advanced.advanceddragonball.ui.herolist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,10 @@ class HeroListFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val adapter = HeroListAdapter()
+    private val adapter = HeroListAdapter {
+        Log.d("Adapter click", it.toString())
+
+    }
 
     private val viewModel: HeroListViewModel by viewModels()
 

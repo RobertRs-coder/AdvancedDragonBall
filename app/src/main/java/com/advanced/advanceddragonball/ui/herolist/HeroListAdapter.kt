@@ -10,7 +10,8 @@ import com.advanced.advanceddragonball.R
 import com.advanced.advanceddragonball.databinding.ItemListBinding
 import com.advanced.advanceddragonball.domain.Hero
 
-class HeroListAdapter: ListAdapter<Hero, HeroListAdapter.HeroViewHolder>(HeroItemDiffCallback()) {
+class HeroListAdapter(private val clickListener: (Hero) -> (Unit)) :
+    ListAdapter<Hero, HeroListAdapter.HeroViewHolder>(HeroItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -23,9 +24,18 @@ class HeroListAdapter: ListAdapter<Hero, HeroListAdapter.HeroViewHolder>(HeroIte
         holder.bind(getItem(position))
     }
 
-    class HeroViewHolder(private val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class HeroViewHolder(private val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
+
+        private lateinit var hero: Hero
+        init {
+            binding.root.setOnClickListener {
+                clickListener(hero)
+            }
+        }
 
         fun bind(hero: Hero) {
+            this.hero = hero
+
             with(binding){
                 heroName.text = hero.name
                 heroImage.load(hero.photo)
