@@ -9,10 +9,10 @@
         android:id="@+id/HeroListFragment"
         android:name="com.advanced.advanceddragonball.ui.list.HeroListFragment"
         android:label="@string/hero_list_fragment_label"
-        tools:layout="@layout/fragment_hero_list">
+        tools:layout="@layout/fragment_list">
 
         <action
-            android:id="@+id/action_HeroListFragment_to_DetailFragment"
+            android:id="@+id/action_HeroListFragment_to_HeroDetailFragment"
             app:destination="@id/HeroDetailFragment" />
     </fragment>
 

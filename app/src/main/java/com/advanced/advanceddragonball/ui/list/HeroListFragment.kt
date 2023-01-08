@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.advanced.advanceddragonball.data.HeroListState
-import com.advanced.advanceddragonball.databinding.FragmentHeroListBinding
+import com.advanced.advanceddragonball.databinding.FragmentListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HeroListFragment : Fragment() {
-    private var _binding: FragmentHeroListBinding? = null
+    private var _binding: FragmentListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,7 +24,11 @@ class HeroListFragment : Fragment() {
 
     private val adapter = HeroListAdapter {
         Log.d("Adapter click", it.toString())
-
+        //TODO: New fragment detail
+//        findNavController().navigate(R.id.action_HeroListFragment_to_HeroDetailFragment)
+        findNavController().navigate(
+            HeroListFragmentDirections
+                .actionHeroListFragmentToHeroDetailFragment(it, it.name))
     }
 
     private val viewModel: HeroListViewModel by viewModels()
@@ -33,7 +38,7 @@ class HeroListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHeroListBinding.inflate(inflater, container, false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
 
     }
