@@ -2,14 +2,13 @@ package com.advanced.advanceddragonball.di
 
 import android.util.Log
 import com.advanced.advanceddragonball.data.remote.DragonBallApi
-import com.advanced.advanceddragonball.ui.herolist.HeroListViewModel
+import com.advanced.advanceddragonball.ui.list.HeroListViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

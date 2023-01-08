@@ -3,26 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/HeroListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.advanced.advanceddragonball.ui.herolist.HeroListFragment"
+        android:id="@+id/HeroListFragment"
+        android:name="com.advanced.advanceddragonball.ui.list.HeroListFragment"
         android:label="@string/hero_list_fragment_label"
         tools:layout="@layout/fragment_hero_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_HeroListFragment_to_DetailFragment"
+            app:destination="@id/HeroDetailFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.advanced.advanceddragonball.ui.detail.DetailFragment"
-        android:label="@string/detail_fragment_label"
+        android:id="@+id/HeroDetailFragment"
+        android:name="com.advanced.advanceddragonball.ui.detail.HeroDetailFragment"
+        android:label="@string/hero_detail_fragment_label"
         tools:layout="@layout/fragment_detail">
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+        <argument
+            android:name="hero"
+            app:argType="com.advanced.advanceddragonball.domain.Hero"
+            app:nullable="false" />
+
+        <argument
+            android:name="hero_name"
+            app:argType="string"
+            app:nullable="false" />
+
     </fragment>
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.advanced.advanceddragonball.ui.herolist
+package com.advanced.advanceddragonball.ui.list
 
 import android.util.Log
 import androidx.lifecycle.*
