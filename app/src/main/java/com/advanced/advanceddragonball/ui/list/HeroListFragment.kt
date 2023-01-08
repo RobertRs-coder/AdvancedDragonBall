@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.advanced.advanceddragonball.data.HeroListState
 import com.advanced.advanceddragonball.databinding.FragmentListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,8 +26,11 @@ class HeroListFragment : Fragment() {
         //TODO: New fragment detail
 //        findNavController().navigate(R.id.action_HeroListFragment_to_HeroDetailFragment)
         findNavController().navigate(
-            HeroListFragmentDirections
-                .actionHeroListFragmentToHeroDetailFragment(it, it.name))
+            HeroListFragmentDirections.actionHeroListFragmentToHeroDetailFragment(
+                    it,
+                    it.name
+            )
+        )
     }
 
     private val viewModel: HeroListViewModel by viewModels()

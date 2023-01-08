@@ -9,7 +9,7 @@ class RemoteToPresentationMapper @Inject constructor(){
         return heroRemoteList.map {map(it) }
     }
 
-    private fun map(heroRemote: HeroRemote): Hero {
+    fun map(heroRemote: HeroRemote): Hero {
         return Hero(heroRemote.id, heroRemote.name, heroRemote.photo)
     }
 }

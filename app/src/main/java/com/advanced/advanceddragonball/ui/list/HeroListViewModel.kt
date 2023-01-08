@@ -2,7 +2,6 @@ package com.advanced.advanceddragonball.ui.list
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.advanced.advanceddragonball.data.HeroListState
 import com.advanced.advanceddragonball.domain.Repository
 
 

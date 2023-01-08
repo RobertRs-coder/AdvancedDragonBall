@@ -1,4 +1,4 @@
-package com.advanced.advanceddragonball.data
+package com.advanced.advanceddragonball.ui.list
 
 import com.advanced.advanceddragonball.domain.Hero
 

@@ -8,6 +8,8 @@ import com.advanced.advanceddragonball.data.remote.RemoteDataSource
 import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
 import com.advanced.advanceddragonball.domain.Repository
+import com.advanced.advanceddragonball.ui.detail.HeroDetailState
+import com.advanced.advanceddragonball.ui.list.HeroListState
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -56,6 +58,35 @@ class RepositoryImpl @Inject constructor(
                     else -> {
                         HeroListState.Failure(
                             result.exceptionOrNull()?.message)
+                    }
+                }
+            }
+        }
+    }
+
+//    override suspend fun getHeroDetail(name: String): Hero {
+//        return remoteToPresentationMapper.map(remoteDataSource.getHeroDetail(name))
+//    }
+
+
+    override suspend fun getHeroDetail(name: String): HeroDetailState {
+        val result = remoteDataSource.getHeroDetail(name)
+        return when {
+            result.isSuccess -> {
+                result.getOrNull()?.let { HeroDetailState.Success(remoteToPresentationMapper.map(it)) }
+                    ?: HeroDetailState.Failure(
+                        result.exceptionOrNull()?.message
+                    )
+            }
+            else -> {
+                when (val exception = result.exceptionOrNull()) {
+                    is HttpException -> HeroDetailState.NetworkFailure(
+                        exception.code()
+                    )
+                    else -> {
+                        HeroDetailState.Failure(
+                            result.exceptionOrNull()?.message
+                        )
                     }
                 }
             }

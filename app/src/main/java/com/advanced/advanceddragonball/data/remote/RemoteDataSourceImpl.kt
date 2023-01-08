@@ -19,4 +19,8 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun getHeroesWithException(): Result<List<HeroRemote>>  {
         return runCatching {  api.getHeroesWithException() }
     }
+
+    override suspend fun getHeroDetail(name: String): Result<HeroRemote?> {
+        return runCatching { api.getHeroDetail(HeroRequest(name)).firstOrNull()  }
+    }
 }
