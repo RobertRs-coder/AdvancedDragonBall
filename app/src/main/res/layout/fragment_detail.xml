@@ -6,11 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.HeroDetailFragment">
 
-    <TextView
-        android:id="@+id/hero_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/imageHeroDetail"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginVertical="10dp"/>
+
+        <TextView
+            android:id="@+id/heroName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="NOMBRE HEROE"
+            android:textStyle="bold"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/descriptionHeroDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="DESCRIPCION HEROE"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOCATIONS"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/textViewLocations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Localizaciones"
+            android:textSize="12sp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
 
 </FrameLayout>
