@@ -23,4 +23,8 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun getHeroDetail(name: String): Result<HeroRemote?> {
         return runCatching { api.getHeroDetail(HeroRequest(name)).firstOrNull()  }
     }
+
+    override suspend fun getToken(): Result<String?> {
+        return runCatching { api.getToken()}
+    }
 }

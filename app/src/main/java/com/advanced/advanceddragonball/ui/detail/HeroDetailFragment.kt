@@ -10,10 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.advanced.advanceddragonball.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
-
 @AndroidEntryPoint
 class HeroDetailFragment : Fragment() {
 
