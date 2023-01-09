@@ -95,7 +95,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getToken(email: String, password: String): LoginState {
-        val result = remoteDataSource.getToken(email, password)
+        val result = remoteDataSource.getToken()
         when
     }
 }

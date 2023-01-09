@@ -8,5 +8,5 @@ interface RemoteDataSource {
     suspend fun getHeroes(): List<HeroRemote>
     suspend fun getHeroesWithException(): Result<List<HeroRemote>>
     suspend fun getHeroDetail(name: String): Result<HeroRemote?>
-    suspend fun getToken(email: String, password: String): Result<String?>
+    suspend fun getToken(): Result<String?>
 }

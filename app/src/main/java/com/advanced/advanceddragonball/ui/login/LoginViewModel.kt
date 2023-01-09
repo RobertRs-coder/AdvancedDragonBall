@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor (
             viewModelScope.launch {
                 val loginState = withContext(Dispatchers.IO) {
                     //TODO: Repository getToken(email, password)
-                    repository.getToken(email, password)
+                    repository.getToken()
                 }
                 _state.value = loginState
             }
