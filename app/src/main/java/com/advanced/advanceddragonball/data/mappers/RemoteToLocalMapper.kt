@@ -16,6 +16,6 @@ class RemoteToLocalMapper @Inject constructor(){
             heroRemote.name,
             heroRemote.photo,
             heroRemote.description,
-            false)
+            heroRemote.favorite)
     }
 }

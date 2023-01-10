@@ -14,6 +14,8 @@ class LocalToPresentationMapper @Inject constructor() {
             heroRemote.id,
             heroRemote.name,
             heroRemote.photo,
+            heroRemote.description,
+            heroRemote.favorite
            )
     }
 }

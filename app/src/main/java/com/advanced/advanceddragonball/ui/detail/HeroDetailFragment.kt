@@ -37,7 +37,7 @@ class HeroDetailFragment : Fragment() {
             when(it) {
                 is HeroDetailState.Success -> {
 
-                    binding.imageHeroDetail.load(it.hero.name)
+                    binding.imageHeroDetail.load(it.hero.photo)
                     binding.heroName.text = it.hero.name
                     binding.descriptionHeroDetail.text = it.hero.description
 
