@@ -1,6 +1,6 @@
 package com.advanced.advanceddragonball.di
 
-import com.advanced.advanceddragonball.domain.Repository
+import com.advanced.advanceddragonball.data.Repository
 import com.advanced.advanceddragonball.data.RepositoryImpl
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.local.LocalDataSourceImpl

@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.advanced.advanceddragonball.domain.Repository
+import com.advanced.advanceddragonball.data.Repository
+import com.advanced.advanceddragonball.domain.Hero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,10 +25,10 @@ class DetailViewModel @Inject constructor(
         private const val TAG = "DetailViewModel: "
     }
 
-    fun getHeroDetail(name: String) {
+    fun getHeroDetail(hero: Hero) {
         viewModelScope.launch {
             val heroListState = withContext(Dispatchers.IO) {
-                repository.getHeroDetail(name)
+                repository.getHeroDetail(hero.name)
             }
             _state.value = heroListState
         }

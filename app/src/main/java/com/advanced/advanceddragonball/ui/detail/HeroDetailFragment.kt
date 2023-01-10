@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.advanced.advanceddragonball.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,9 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HeroDetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private val args: HeroDetailFragmentArgs by navArgs()
@@ -38,7 +36,11 @@ class HeroDetailFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) {
             when(it) {
                 is HeroDetailState.Success -> {
+
+                    binding.imageHeroDetail.load(it.hero.name)
                     binding.heroName.text = it.hero.name
+                    binding.descriptionHeroDetail.text = it.hero.description
+
                 }
                 else -> {
 
@@ -46,7 +48,7 @@ class HeroDetailFragment : Fragment() {
             }
         }
 
-        viewModel.getHeroDetail(args.heroName)
+        viewModel.getHeroDetail(args.hero)
     }
 
     override fun onDestroyView() {

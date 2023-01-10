@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HeroListFragment">
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.advanced.advanceddragonball.ui.login.LoginFragment"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_HeroListFragment"
+            app:destination="@id/HeroListFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/HeroListFragment"
@@ -13,7 +25,8 @@
 
         <action
             android:id="@+id/action_HeroListFragment_to_HeroDetailFragment"
-            app:destination="@id/HeroDetailFragment" />
+            app:destination="@id/HeroDetailFragment"/>
+
     </fragment>
 
     <fragment
@@ -25,11 +38,6 @@
         <argument
             android:name="hero"
             app:argType="com.advanced.advanceddragonball.domain.Hero"
-            app:nullable="false" />
-
-        <argument
-            android:name="hero_name"
-            app:argType="string"
             app:nullable="false" />
 
     </fragment>

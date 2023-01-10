@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.advanced.advanceddragonball.domain.Repository
+import com.advanced.advanceddragonball.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +20,7 @@ class LoginViewModel @Inject constructor (
         get() =_state
 
     companion object {
+        private const val CREDENTIALS = "cnJvam8udmFAZ21haWwuY29tOjEyMzQ1Ng=="
         private const val TAG = "LoginViewModel: "
     }
 
@@ -28,12 +29,10 @@ class LoginViewModel @Inject constructor (
             viewModelScope.launch {
                 val loginState = withContext(Dispatchers.IO) {
                     //TODO: Repository getToken(email, password)
-                    repository.getToken()
+                    repository.login(email, password)
                 }
                 _state.value = loginState
             }
-        } else{
-            print("Error")
         }
     }
 

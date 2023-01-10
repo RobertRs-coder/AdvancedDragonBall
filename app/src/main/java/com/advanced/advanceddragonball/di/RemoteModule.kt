@@ -18,39 +18,38 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
 
-    @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
+//    @Provides
+//    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+//        return HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
+//            level = HttpLoggingInterceptor.Level.BODY
+//        }
+//    }
 
     @Provides
-//    // Practica
-//    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, dataStore: DataStore): OkHttpClient {
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+//    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val originalRequest = chain.request()
-                val newRequest = originalRequest.newBuilder()
-//                .header("Authorization", "Bearer $TOKEN")
-                    .header("Content-Type", "Application/Text")
-                    .build()
-                chain.proceed(newRequest)
-            }
-            .authenticator { _, response ->
-//                // Practica --> endpoint login vacio
-//                response.request.newBuilder().header("Authorization", "Bearer ${dataStore.getToken()}").build()
-                //See errors in the request
-                Log.d("Hola", "${response.request.url} ${response.code}")
-
-                response.request.newBuilder().header("Authorization", "Bearer ${HeroListViewModel.TOKEN}").build()
-
-//                //To login pass user & password inside the constructor and put into this function
-//                val credentials: String = Credentials.basic("username", "pass")
-//                response.request.newBuilder().header("Authorization", credentials).build()
-            }
-            .addInterceptor(httpLoggingInterceptor)
+//            .addInterceptor { chain ->
+//                val originalRequest = chain.request()
+//                val newRequest = originalRequest.newBuilder()
+////                .header("Authorization", "Bearer $TOKEN")
+//                    .header("Content-Type", "Application/Text")
+//                    .build()
+//                chain.proceed(newRequest)
+//            }
+//            .authenticator { _, response ->
+////                // Practica --> endpoint login vacio
+////                response.request.newBuilder().header("Authorization", "Bearer ${dataStore.getToken()}").build()
+//                //See errors in the request
+//                Log.d("Hola", "${response.request.url} ${response.code}")
+//
+//                response.request.newBuilder().header("Authorization", "Bearer ${HeroListViewModel.TOKEN}").build()
+//
+////                //To login pass user & password inside the constructor and put into this function
+////                val credentials: String = Credentials.basic("username", "pass")
+////                response.request.newBuilder().header("Authorization", credentials).build()
+//            }
+//            .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 

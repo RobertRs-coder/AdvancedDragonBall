@@ -16,7 +16,7 @@ class FakeLocalDataSource: LocalDataSource {
         }
     }
 
-    override fun insertHeroes(remoteHeroes: List<HeroLocal>) {
+    override suspend fun insertHeroes(remoteHeroes: List<HeroLocal>) {
 
     }
 }

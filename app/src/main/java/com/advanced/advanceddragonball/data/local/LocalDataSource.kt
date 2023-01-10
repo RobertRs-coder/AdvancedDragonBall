@@ -4,5 +4,5 @@ import com.advanced.advanceddragonball.data.local.model.HeroLocal
 
 interface LocalDataSource {
     fun getHeroes(): List<HeroLocal>
-    fun insertHeroes(remoteHeroes: List<HeroLocal>)
+    suspend fun insertHeroes(remoteHeroes: List<HeroLocal>)
 }

@@ -8,10 +8,12 @@ import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Hero (
+data class Detail (
     val id: String,
     val name: String,
-    val photo: String
+    val photo: String,
+    val description: String,
+    val favorite: Boolean
 ) : Parcelable
 
 

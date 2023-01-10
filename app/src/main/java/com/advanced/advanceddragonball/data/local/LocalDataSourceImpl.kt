@@ -20,7 +20,7 @@ class LocalDataSourceImpl @Inject constructor(private val dao: HeroDao): LocalDa
         return dao.getAllHeroes()
     }
 
-    override fun insertHeroes(remoteHeroes: List<HeroLocal>) {
+    override suspend fun insertHeroes(remoteHeroes: List<HeroLocal>) {
          dao.insertAll(remoteHeroes)
     }
 }

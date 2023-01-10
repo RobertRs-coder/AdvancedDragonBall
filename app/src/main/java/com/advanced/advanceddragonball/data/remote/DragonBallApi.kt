@@ -2,28 +2,18 @@ package com.advanced.advanceddragonball.data.remote
 
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
-import com.advanced.advanceddragonball.domain.Bootcamp
 import retrofit2.http.Body
-import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface DragonBallApi {
 
-    @GET("api/data/bootcamps")
-    suspend fun getBootcamps(): List<Bootcamp>
+    @POST("api/heros/all")
+    suspend fun getHeroes(@Body heroRequest: HeroRequest, @Header("Authorization") auth: String): List<HeroRemote>
 
     @POST("api/heros/all")
-//    @Headers("Authorization: Bearer ${TOKEN}
-    suspend fun getHeroes(@Body heroRequest: HeroRequest): List<HeroRemote>
-
-    @POST("api/heros/all")
-//    @Headers("Authorization: Bearer ${TOKEN}
-    suspend fun getHeroesWithException(): List<HeroRemote>
-
-    @POST("api/heros/all")
-//    @Headers("Authorization: Bearer ${TOKEN}
-    suspend fun getHeroDetail(@Body heroRequest: HeroRequest): List<HeroRemote>
+    suspend fun getHeroDetail(@Body heroRequest: HeroRequest, @Header("Authorization") auth: String): List<HeroRemote>
 
     @POST("/api/auth/login")
-    suspend fun getToken(): String
+    suspend fun login(@Header("Authorization") auth: String): String
 }

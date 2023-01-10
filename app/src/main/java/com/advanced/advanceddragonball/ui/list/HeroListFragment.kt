@@ -16,9 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HeroListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private val adapter = HeroListAdapter {
@@ -26,10 +23,7 @@ class HeroListFragment : Fragment() {
         //TODO: New fragment detail
 //        findNavController().navigate(R.id.action_HeroListFragment_to_HeroDetailFragment)
         findNavController().navigate(
-            HeroListFragmentDirections.actionHeroListFragmentToHeroDetailFragment(
-                    it,
-                    it.name
-            )
+            HeroListFragmentDirections.actionHeroListFragmentToHeroDetailFragment(it)
         )
     }
 
@@ -51,14 +45,6 @@ class HeroListFragment : Fragment() {
             heroList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             heroList.adapter = adapter
 
-            viewModel.heroes.observe(viewLifecycleOwner) {heroList ->
-                adapter.submitList(heroList)
-            }
-
-            viewModel.error.observe(viewLifecycleOwner) {error ->
-                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
-            }
-
             viewModel.state.observe(viewLifecycleOwner){ state ->
                 when(state){
                     is HeroListState.Failure -> {
@@ -67,14 +53,12 @@ class HeroListFragment : Fragment() {
                     is HeroListState.Success -> {
                         adapter.submitList(state.heroes)
                     }
-                    is HeroListState.NetworkFailure -> {
+                    is HeroListState.NetworkError -> {
                     }
                 }
             }
-
             viewModel.getHeroes()
         }
-
     }
 
     override fun onDestroyView() {

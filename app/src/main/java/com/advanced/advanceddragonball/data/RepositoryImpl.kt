@@ -5,9 +5,6 @@ import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
-import com.advanced.advanceddragonball.domain.Bootcamp
-import com.advanced.advanceddragonball.domain.Hero
-import com.advanced.advanceddragonball.domain.Repository
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
 import com.advanced.advanceddragonball.ui.login.LoginState
@@ -22,66 +19,78 @@ class RepositoryImpl @Inject constructor(
     private val localToPresentationMapper: LocalToPresentationMapper
     ) : Repository {
 
-    override suspend fun getBootcamps(): List<Bootcamp> {
-        return remoteDataSource.getBootcamps()
-    }
+    companion object {
+        const val TOKEN =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InByaXZhdGUifQ.eyJleHBpcmF0aW9uIjo2NDA5MjIxMTIwMCwiaWRlbnRpZnkiOiIyNjBENjk3My00Njc0LTQyRDQtQjUxRi00MjYwRTBBMUJCOUYiLCJlbWFpbCI6InJyb2pvLnZhQGdtYWlsLmNvbSJ9.lQOqPIfkP0_GJs8lik1PmfacpoQcyDxy3NGJGeflOEc"    }
 
-    override suspend fun getHeroes(): List<Hero> {
-        return remoteToPresentationMapper.map(remoteDataSource.getHeroes())
-    }
 
-    override suspend fun getHeroesWithCache(): List<Hero> {
-        //TODO-1:Get data from local
+//    override fun getHerosFromLocal() {
+//        localDataSource.getHeroes()
+//    }
+//
+//    override fun getHerosToLocal(remoteHeroes: List<HeroLocal>){
+//        localDataSource.insertHeroes(remoteHeroes)
+//    }
+
+//    override suspend fun getHeroesWithCache(): LoginState {
+//        // 1º Pido los datos a local
+//        val localHeroes = localDataSource.getHeroes()
+//        // 2º Compruebo si hay datos
+//        if (localHeroes.isEmpty()) { getHeroes() }
+////            // 3º Si no hay datos
+////            //3a Pido datos a remoto
+////            val remoteHeroes = remoteDataSource.getHeroes("Bearer $TOKEN")
+////            //3b Guardo datos en local
+////            localDataSource.insertHeroes(remoteToLocalMapper.map(remoteHeroes))
+////        }
+////        // 4º Devuelvo datos local
+////        return localToPresentationMapper.map(localDataSource.getHeroes()
+//
+//    }
+
+
+    override suspend fun getHeroes(): HeroListState {
         val localHeroes = localDataSource.getHeroes()
-        //TODO-2:Check if there isn't data
-        if(localHeroes.isEmpty()) {
-            //TODO-3a:Get data from remote
-            val remoteHeroes = remoteDataSource.getHeroes()
-            //TODO-3b:Save data to local
-            localDataSource.run {
-                //TODO-3b:Save data to local
-                insertHeroes(remoteToLocalMapper.map(remoteHeroes))
-            }
-        }
-        //TODO-4: Return local from data
-        return localToPresentationMapper.map(localDataSource.getHeroes())
-    }
 
-    override suspend fun getHeroesWithException(): HeroListState {
-        val result = remoteDataSource.getHeroesWithException()
-        return when {
-            result.isSuccess -> HeroListState.Success(remoteToPresentationMapper.map(result.getOrThrow()))
-            else -> {
-                when (val exception = result.exceptionOrNull()) {
-                    is HttpException -> HeroListState.NetworkFailure(
-                        exception.code()
-                    )
-                    else -> {
-                        HeroListState.Failure(
-                            result.exceptionOrNull()?.message)
+        if (localHeroes.isNotEmpty()) {
+            return HeroListState.Success(localToPresentationMapper.map(localDataSource.getHeroes()))
+
+        } else {
+            val result = remoteDataSource.getHeroes("Bearer $TOKEN")
+            return when {
+                result.isSuccess -> {
+                    result.getOrNull()?.let {
+                        localDataSource.insertHeroes(remoteToLocalMapper.map(it))
+                        HeroListState.Success(localToPresentationMapper.map(localDataSource.getHeroes()))
+                    }
+                        ?: HeroListState.Failure(result.exceptionOrNull()?.message)
+                }
+                else -> {
+                    when (val exception = result.exceptionOrNull()) {
+                        is HttpException -> HeroListState.NetworkError(
+                            exception.code()
+                        )
+                        else -> {
+                            HeroListState.Failure(result.exceptionOrNull()?.message)
+                        }
                     }
                 }
             }
         }
-    }
 
-//    override suspend fun getHeroDetail(name: String): Hero {
-//        return remoteToPresentationMapper.map(remoteDataSource.getHeroDetail(name))
-//    }
+    }
 
 
     override suspend fun getHeroDetail(name: String): HeroDetailState {
-        val result = remoteDataSource.getHeroDetail(name)
+        val result = remoteDataSource.getHeroDetail(name, "Bearer $TOKEN")
         return when {
             result.isSuccess -> {
                 result.getOrNull()?.let { HeroDetailState.Success(remoteToPresentationMapper.map(it)) }
-                    ?: HeroDetailState.Failure(
-                        result.exceptionOrNull()?.message
-                    )
+                    ?: HeroDetailState.Failure(result.exceptionOrNull()?.message)
             }
             else -> {
                 when (val exception = result.exceptionOrNull()) {
-                    is HttpException -> HeroDetailState.NetworkFailure(
+                    is HttpException -> HeroDetailState.NetworkError(
                         exception.code()
                     )
                     else -> {
@@ -94,8 +103,27 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getToken(email: String, password: String): LoginState {
-        val result = remoteDataSource.getToken()
-        when
+    override suspend fun login(email: String, password: String): LoginState {
+        val result = remoteDataSource.login(email, password)
+        return when {
+            result.isSuccess -> {
+                result.getOrNull()?.let { LoginState.Success(it) }
+                    ?: LoginState.Failure(
+                        result.exceptionOrNull()?.message
+                    )
+            }
+            else -> {
+                when (val exception = result.exceptionOrNull()) {
+                    is HttpException -> LoginState.NetworkError(
+                        exception.code()
+                    )
+                    else -> {
+                        LoginState.Failure(
+                            result.exceptionOrNull()?.message
+                        )
+                    }
+                }
+            }
+        }
     }
 }
