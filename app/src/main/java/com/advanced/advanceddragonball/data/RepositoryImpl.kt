@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.data
 
+import android.util.Log
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.local.datastore.PrefsDataStore
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
@@ -57,7 +58,10 @@ class RepositoryImpl @Inject constructor(
             return HeroListState.Success(localToPresentationMapper.map(localDataSource.getHeroes()))
 
         } else {
-            val result = remoteDataSource.getHeroes("Bearer $TOKEN")
+            val token = dataStore.getToken(TOKEN)
+
+            t
+            val result = remoteDataSource.getHeroes("Bearer $token")
             return when {
                 result.isSuccess -> {
                     result.getOrNull()?.let {
@@ -82,7 +86,9 @@ class RepositoryImpl @Inject constructor(
 
 
     override suspend fun getHeroDetail(name: String): HeroDetailState {
-        val result = remoteDataSource.getHeroDetail(name, "Bearer $TOKEN")
+        val token = dataStore.getToken(TOKEN)
+
+        val result = remoteDataSource.getHeroDetail(name, "Bearer $token")
         return when {
             result.isSuccess -> {
                 result.getOrNull()?.let { HeroDetailState.Success(remoteToPresentationMapper.map(it)) }
@@ -106,20 +112,25 @@ class RepositoryImpl @Inject constructor(
     override suspend fun login(email: String, password: String): LoginState {
 
         val token = dataStore.getToken(TOKEN)
+        Log.d("TOKEN","datastore Token $token")
 
         if (token?.isNotEmpty() == true) {
 
             return LoginState.Success(token)
+
         } else {
 
             val result = remoteDataSource.login(email, password)
             return when {
                 result.isSuccess -> {
                     result.getOrNull()?.let {
+
+                        Log.d("TOKEN","remote Token $it")
                         dataStore.saveToken(TOKEN, it)
                         LoginState.Success(it)
                     }
                         ?: LoginState.Failure(result.exceptionOrNull()?.message)
+
                 }
                 else -> {
                     when (val exception = result.exceptionOrNull()) {

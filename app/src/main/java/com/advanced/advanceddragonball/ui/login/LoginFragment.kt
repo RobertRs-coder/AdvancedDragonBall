@@ -1,6 +1,7 @@
 package com.advanced.advanceddragonball.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,8 @@ class LoginFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { it ->
             when (it) {
                 is LoginState.Success -> {
+
+                    Log.d("TOKEN","token Frsgment ${it.token}")
                     binding.loadingBar.visibility = View.INVISIBLE
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHeroListFragment())
                 }

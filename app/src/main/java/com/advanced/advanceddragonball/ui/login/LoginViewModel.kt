@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +21,6 @@ class LoginViewModel @Inject constructor (
         get() =_state
 
     companion object {
-        private const val CREDENTIALS = "cnJvam8udmFAZ21haWwuY29tOjEyMzQ1Ng=="
         private const val TAG = "LoginViewModel: "
     }
 
@@ -32,6 +32,7 @@ class LoginViewModel @Inject constructor (
                     repository.login(email, password)
                 }
                 _state.value = loginState
+                Log.d("TOKEN", "token ViewModel ${_state.value.toString()}")
             }
         }
     }
