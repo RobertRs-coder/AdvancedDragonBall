@@ -38,7 +38,9 @@ class HeroListAdapter(private val clickListener: (Hero) -> (Unit)) :
 
             with(binding){
                 heroName.text = hero.name
-                heroImage.load(hero.photo)
+                binding.heroImage.load(hero.photo) {
+                    placeholder(R.drawable.enigma_image)
+                }
             }
         }
     }

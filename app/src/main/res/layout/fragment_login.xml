@@ -25,13 +25,14 @@
         android:id="@+id/login_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@+id/logo_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:cardCornerRadius="16dp"
         android:layout_margin="16dp"
-        android:alpha="0.3">
+        app:cardBackgroundColor="#B0FFBB33">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +51,7 @@
             android:layout_marginHorizontal="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf = "@+id/login_card" />
+            app:layout_constraintTop_toTopOf = "@+id/login_card"/>
         <EditText
             android:id="@+id/user_password"
             android:layout_width="wrap_content"

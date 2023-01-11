@@ -1,6 +1,7 @@
 package com.advanced.advanceddragonball.data
 
 import com.advanced.advanceddragonball.data.local.LocalDataSource
+import com.advanced.advanceddragonball.data.local.datastore.PrefsDataStore
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
@@ -14,15 +15,15 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
+    private val dataStore: PrefsDataStore,
     private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
     private val localToPresentationMapper: LocalToPresentationMapper
     ) : Repository {
 
     companion object {
-        const val TOKEN =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InByaXZhdGUifQ.eyJleHBpcmF0aW9uIjo2NDA5MjIxMTIwMCwiaWRlbnRpZnkiOiIyNjBENjk3My00Njc0LTQyRDQtQjUxRi00MjYwRTBBMUJCOUYiLCJlbWFpbCI6InJyb2pvLnZhQGdtYWlsLmNvbSJ9.lQOqPIfkP0_GJs8lik1PmfacpoQcyDxy3NGJGeflOEc"    }
-
+        const val TOKEN = "TOKEN"
+    }
 
 //    override fun getHerosFromLocal() {
 //        localDataSource.getHeroes()
@@ -77,7 +78,6 @@ class RepositoryImpl @Inject constructor(
                 }
             }
         }
-
     }
 
 
@@ -104,26 +104,37 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun login(email: String, password: String): LoginState {
-        val result = remoteDataSource.login(email, password)
-        return when {
-            result.isSuccess -> {
-                result.getOrNull()?.let { LoginState.Success(it) }
-                    ?: LoginState.Failure(
-                        result.exceptionOrNull()?.message
-                    )
-            }
-            else -> {
-                when (val exception = result.exceptionOrNull()) {
-                    is HttpException -> LoginState.NetworkError(
-                        exception.code()
-                    )
-                    else -> {
-                        LoginState.Failure(
-                            result.exceptionOrNull()?.message
+
+        val token = dataStore.getToken(TOKEN)
+
+        if (token?.isNotEmpty() == true) {
+
+            return LoginState.Success(token)
+        } else {
+
+            val result = remoteDataSource.login(email, password)
+            return when {
+                result.isSuccess -> {
+                    result.getOrNull()?.let {
+                        dataStore.saveToken(TOKEN, it)
+                        LoginState.Success(it)
+                    }
+                        ?: LoginState.Failure(result.exceptionOrNull()?.message)
+                }
+                else -> {
+                    when (val exception = result.exceptionOrNull()) {
+                        is HttpException -> LoginState.NetworkError(
+                            exception.code()
                         )
+                        else -> {
+                            LoginState.Failure(
+                                result.exceptionOrNull()?.message
+                            )
+                        }
                     }
                 }
             }
+
         }
     }
 }

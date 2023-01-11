@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.advanced.advanceddragonball.R
 import com.advanced.advanceddragonball.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,14 +38,15 @@ class HeroDetailFragment : Fragment() {
             when(it) {
                 is HeroDetailState.Success -> {
 
-                    binding.imageHeroDetail.load(it.hero.photo)
-                    binding.heroName.text = it.hero.name
-                    binding.descriptionHeroDetail.text = it.hero.description
+                    binding.imageHeroDetail.load(it.hero.photo) {
+                        placeholder(R.drawable.enigma_image)
+                    }
+                        binding.heroName.text = it.hero.name
+                        binding.descriptionHeroDetail.text = it.hero.description
+                    }
 
-                }
-                else -> {
+                else -> {}
 
-                }
             }
         }
 
