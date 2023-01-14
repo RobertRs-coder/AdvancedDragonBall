@@ -60,7 +60,6 @@ class RepositoryImpl @Inject constructor(
         } else {
             val token = dataStore.getToken(TOKEN)
 
-            t
             val result = remoteDataSource.getHeroes("Bearer $token")
             return when {
                 result.isSuccess -> {

@@ -39,7 +39,9 @@ fun generateHeroes(): List<Hero> {
         Hero(
             "ID: $it",
             "Name $it",
-            "Photo $it"
+            "Photo $it",
+            "Description $it",
+            false
         )
     }
 }

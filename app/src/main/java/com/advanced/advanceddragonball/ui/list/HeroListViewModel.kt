@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeroListViewModel @Inject constructor(
-    private val repository: Repository
-    ) : ViewModel() {
+    private val repository: Repository,
+) : ViewModel() {
 
     private val _state = MutableLiveData<HeroListState>()
     val state: LiveData<HeroListState>
