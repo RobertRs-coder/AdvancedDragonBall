@@ -53,12 +53,6 @@ class HeroListViewModelTest {
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @Before
-    fun setup(){
-        Dispatchers.setMain(mainThreadSurrogate)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown(){
         Dispatchers.resetMain()

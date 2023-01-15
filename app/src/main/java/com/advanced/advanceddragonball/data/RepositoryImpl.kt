@@ -83,7 +83,6 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-
     override suspend fun getHeroDetail(name: String): HeroDetailState {
         val token = dataStore.getToken(TOKEN)
 
