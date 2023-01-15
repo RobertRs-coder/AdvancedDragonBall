@@ -2,12 +2,6 @@ package com.advanced.advanceddragonball.ui.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.advanced.advanceddragonball.data.Repository
-import com.advanced.advanceddragonball.data.RepositoryImpl
-import com.advanced.advanceddragonball.data.local.LocalDataSource
-import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
-import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
-import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
-import com.advanced.advanceddragonball.data.remote.RemoteDataSource
 import com.advanced.advanceddragonball.utils.generateHeroes
 import com.advanced.advanceddragonball.utils.getOrAwaitValue
 import com.google.common.truth.Truth

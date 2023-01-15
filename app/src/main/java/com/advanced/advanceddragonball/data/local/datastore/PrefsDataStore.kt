@@ -1,5 +1,8 @@
 package com.advanced.advanceddragonball.data.local.datastore
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+
 interface PrefsDataStore {
 
     suspend fun saveToken(key: String, value: String)

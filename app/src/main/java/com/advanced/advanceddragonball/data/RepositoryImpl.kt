@@ -26,31 +26,6 @@ class RepositoryImpl @Inject constructor(
         const val TOKEN = "TOKEN"
     }
 
-//    override fun getHerosFromLocal() {
-//        localDataSource.getHeroes()
-//    }
-//
-//    override fun getHerosToLocal(remoteHeroes: List<HeroLocal>){
-//        localDataSource.insertHeroes(remoteHeroes)
-//    }
-
-//    override suspend fun getHeroesWithCache(): LoginState {
-//        // 1º Pido los datos a local
-//        val localHeroes = localDataSource.getHeroes()
-//        // 2º Compruebo si hay datos
-//        if (localHeroes.isEmpty()) { getHeroes() }
-////            // 3º Si no hay datos
-////            //3a Pido datos a remoto
-////            val remoteHeroes = remoteDataSource.getHeroes("Bearer $TOKEN")
-////            //3b Guardo datos en local
-////            localDataSource.insertHeroes(remoteToLocalMapper.map(remoteHeroes))
-////        }
-////        // 4º Devuelvo datos local
-////        return localToPresentationMapper.map(localDataSource.getHeroes()
-//
-//    }
-
-
     override suspend fun getHeroes(): HeroListState {
         val localHeroes = localDataSource.getHeroes()
 

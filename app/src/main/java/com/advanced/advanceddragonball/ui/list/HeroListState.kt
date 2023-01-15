@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.ui.list
 
+import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Hero
 
 sealed class HeroListState {

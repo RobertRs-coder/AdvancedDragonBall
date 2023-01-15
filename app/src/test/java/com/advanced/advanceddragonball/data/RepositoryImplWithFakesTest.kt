@@ -1,10 +1,12 @@
 package com.advanced.advanceddragonball.data
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.advanced.advanceddragonball.data.local.LocalDataSource
-import com.advanced.advanceddragonball.data.local.datastore.PrefsDataStore
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
+import com.advanced.advanceddragonball.fakes.FakePrefsDataStore
 import com.advanced.advanceddragonball.fakes.FakeRemoteDataSource
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.google.common.truth.Truth
@@ -20,13 +22,15 @@ class RepositoryImplWithFakesTest {
     //UUT o SUT
     private lateinit var repositoryImpl: RepositoryImpl
     private lateinit var localDataSource: LocalDataSource
-    private lateinit var prefsDataStore: PrefsDataStore
+
+
+    private val prefsDataStore = FakePrefsDataStore()
     private val fakeRemoteDataSource = FakeRemoteDataSource()
 
     @Before
     fun setUpMocks(){
         localDataSource = mockk()
-        prefsDataStore = mockk()
+
 
         repositoryImpl = RepositoryImpl(
             localDataSource,
@@ -73,7 +77,7 @@ class RepositoryImplWithFakesTest {
 
         // THEN
         assert(actual is HeroDetailState.Failure)
-        assert((actual as HeroDetailState.Failure).error == "Null value Api response")
+        assert((actual as HeroDetailState.Failure).error == null)
     }
 
     @Test
