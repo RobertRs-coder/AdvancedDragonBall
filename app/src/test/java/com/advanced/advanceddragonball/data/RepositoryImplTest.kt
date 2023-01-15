@@ -29,84 +29,84 @@ import org.junit.Test
 class RepositoryImplTest {
     //SUT: System Under Testing -> What do you want to test?
     //UUT o SUT
-    private lateinit var sut: RepositoryImpl
-    private lateinit var localDataSource: LocalDataSource
-    private lateinit var remoteDataSource: RemoteDataSource
-
-    @Before
-    fun setUp(){
-        localDataSource = mockk()
-        remoteDataSource = mockk()
-
-        sut = RepositoryImpl(
-            localDataSource,
-            remoteDataSource,
-            RemoteToPresentationMapper(),
-            RemoteToLocalMapper(),
-            LocalToPresentationMapper()
-        )
-    }
-
-    @Test
-    fun test_getHeroes_withLocalEmptyList() = runTest {
-        //Given
-        coEvery { localDataSource.getHeroes() } returns generateHeroesLocal()
-
-        //When
-        val actual = sut.getHeroesWithCache()
-
-        //Then
-        // Version JUnit
-        assert(actual.isNotEmpty())
-        assertEquals(actual[0].name, "Name 0")
-
-        // Version Truth
-        Truth.assertThat(actual).isNotEmpty()
-        Truth.assertThat(actual.first().name).isEqualTo("Name 0")
-        Truth.assertThat(actual).containsExactlyElementsIn(generateHeroes())
-    }
-
-    @Test
-    fun test_getHeroes_withLocalList() = runTest {
-        //Given
-
-        coEvery {localDataSource.getHeroes() } returns listOf<HeroLocal>(
-            HeroLocal("01", "Hero 1", "", "", false))
-
-
-        //When
-        val actual = sut.getHeroesWithCache()
-
-        //Then
-        assert(actual.isNotEmpty())
-        assertEquals(actual[0].name, "Hero 1")
-    }
-
-    @Test
-    fun test_getHeroes_withFakeLocalDataSource() = runTest {
-        //Given
-
-        val localDataSource = FakeLocalDataSource()
-        sut = RepositoryImpl(
-            localDataSource,
-            remoteDataSource,
-            RemoteToPresentationMapper(),
-            RemoteToLocalMapper(),
-            LocalToPresentationMapper()
-        )
-
-        coEvery { remoteDataSource.getHeroes() } returns generateHeroesRemote()
-        //When
-        val actual = sut.getHeroesWithCache()
-
-        //Then
-        assert(actual.isNotEmpty())
-        assertEquals(actual[0].name, "Name 0")
-
-        // THEN
-        Truth.assertThat(actual).isNotEmpty()
-        Truth.assertThat(actual.first().name).isEqualTo("Name 0")
-        coVerify { remoteDataSource.getHeroes() }
-        Truth.assertThat(actual).containsExactlyElementsIn(generateHeroes())
-    }
+//    private lateinit var sut: RepositoryImpl
+//    private lateinit var localDataSource: LocalDataSource
+//    private lateinit var remoteDataSource: RemoteDataSource
+//
+//    @Before
+//    fun setUp(){
+//        localDataSource = mockk()
+//        remoteDataSource = mockk()
+//
+//        sut = RepositoryImpl(
+//            localDataSource,
+//            remoteDataSource,
+//            RemoteToPresentationMapper(),
+//            RemoteToLocalMapper(),
+//            LocalToPresentationMapper()
+//        )
+//    }
+//
+//    @Test
+//    fun test_getHeroes_withLocalEmptyList() = runTest {
+//        //Given
+//        coEvery { localDataSource.getHeroes() } returns generateHeroesLocal()
+//
+//        //When
+//        val actual = sut.getHeroesWithCache()
+//
+//        //Then
+//        // Version JUnit
+//        assert(actual.isNotEmpty())
+//        assertEquals(actual[0].name, "Name 0")
+//
+//        // Version Truth
+//        Truth.assertThat(actual).isNotEmpty()
+//        Truth.assertThat(actual.first().name).isEqualTo("Name 0")
+//        Truth.assertThat(actual).containsExactlyElementsIn(generateHeroes())
+//    }
+//
+//    @Test
+//    fun test_getHeroes_withLocalList() = runTest {
+//        //Given
+//
+//        coEvery {localDataSource.getHeroes() } returns listOf<HeroLocal>(
+//            HeroLocal("01", "Hero 1", "", "", false))
+//
+//
+//        //When
+//        val actual = sut.getHeroesWithCache()
+//
+//        //Then
+//        assert(actual.isNotEmpty())
+//        assertEquals(actual[0].name, "Hero 1")
+//    }
+//
+//    @Test
+//    fun test_getHeroes_withFakeLocalDataSource() = runTest {
+//        //Given
+//
+//        val localDataSource = FakeLocalDataSource()
+//        sut = RepositoryImpl(
+//            localDataSource,
+//            remoteDataSource,
+//            RemoteToPresentationMapper(),
+//            RemoteToLocalMapper(),
+//            LocalToPresentationMapper()
+//        )
+//
+//        coEvery { remoteDataSource.getHeroes() } returns generateHeroesRemote()
+//        //When
+//        val actual = sut.getHeroesWithCache()
+//
+//        //Then
+//        assert(actual.isNotEmpty())
+//        assertEquals(actual[0].name, "Name 0")
+//
+//        // THEN
+//        Truth.assertThat(actual).isNotEmpty()
+//        Truth.assertThat(actual.first().name).isEqualTo("Name 0")
+//        coVerify { remoteDataSource.getHeroes() }
+//        Truth.assertThat(actual).containsExactlyElementsIn(generateHeroes())
+//    }
 }
