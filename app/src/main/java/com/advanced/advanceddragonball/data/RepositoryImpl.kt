@@ -4,9 +4,12 @@ import android.util.Log
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.local.datastore.PrefsDataStore
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
+import com.advanced.advanceddragonball.data.mappers.LocationRemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
+import com.advanced.advanceddragonball.domain.HeroLocation
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
 import com.advanced.advanceddragonball.ui.login.LoginState
@@ -19,7 +22,8 @@ class RepositoryImpl @Inject constructor(
     private val dataStore: PrefsDataStore,
     private val remoteToPresentationMapper: RemoteToPresentationMapper,
     private val remoteToLocalMapper: RemoteToLocalMapper,
-    private val localToPresentationMapper: LocalToPresentationMapper
+    private val localToPresentationMapper: LocalToPresentationMapper,
+    private val locationRemoteToPresentationMapper: LocationRemoteToPresentationMapper,
     ) : Repository {
 
     companion object {
@@ -64,7 +68,8 @@ class RepositoryImpl @Inject constructor(
         val result = remoteDataSource.getHeroDetail(name, "Bearer $token")
         return when {
             result.isSuccess -> {
-                result.getOrNull()?.let { HeroDetailState.Success(remoteToPresentationMapper.map(it)) }
+                result.getOrNull()
+                    ?.let { HeroDetailState.Success(remoteToPresentationMapper.map(it)) }
                     ?: HeroDetailState.Failure(result.exceptionOrNull()?.message)
             }
             else -> {
@@ -85,7 +90,7 @@ class RepositoryImpl @Inject constructor(
     override suspend fun login(email: String, password: String): LoginState {
 
         val token = dataStore.getToken(TOKEN)
-        Log.d("TOKEN","datastore Token $token")
+        Log.d("TOKEN", "datastore Token $token")
 
         if (token?.isNotEmpty() == true) {
 
@@ -98,7 +103,7 @@ class RepositoryImpl @Inject constructor(
                 result.isSuccess -> {
                     result.getOrNull()?.let {
 
-                        Log.d("TOKEN","remote Token $it")
+                        Log.d("TOKEN", "remote Token $it")
                         dataStore.saveToken(TOKEN, it)
                         LoginState.Success(it)
                     }
@@ -120,5 +125,19 @@ class RepositoryImpl @Inject constructor(
             }
 
         }
+    }
+
+
+    override suspend fun getHeroLocations(heroId: String): List<HeroLocation>? {
+
+        val token = dataStore.getToken(TOKEN)
+
+        val result = remoteDataSource.getHeroLocations(heroId, "Bearer $token")
+
+        result.onSuccess {
+            //Devolver un mapper con las localizaciones
+            return it?.let {  locationRemoteToPresentationMapper.map(it) }
+        }
+        return emptyList()
     }
 }

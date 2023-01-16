@@ -12,5 +12,5 @@ data class Hero(
     val photo: String,
     val description: String,
     val favorite: Boolean,
-    var locations: @RawValue List<Location>? = null
+    var locations: @RawValue List<HeroLocation>? = null
 ): Parcelable

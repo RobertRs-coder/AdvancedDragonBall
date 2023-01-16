@@ -38,7 +38,7 @@ class DetailViewModel @Inject constructor(
                     val hero = heroListState.hero
                     val locations = withContext(Dispatchers.IO) {
                         //LLAMAR A LAS LOCALIZACIONES EN EL REPOSITORIO
-                        repository.getLocations(hero.id)
+                        repository.getHeroLocations(hero.id)
                     }
                     hero.locations = locations
                 }
