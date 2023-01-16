@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class HeroLocation (
     val id: String,
-    val longitud: String,
-    val latitud: String,
+    val longitude: String,
+    val latitude: String,
     val dateShow: String
 ): Parcelable

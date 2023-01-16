@@ -13,8 +13,8 @@ class LocationRemoteToPresentationMapper @Inject constructor(){
     private fun map(heroLocationRemote: HeroLocationRemote): HeroLocation {
         return HeroLocation(
             heroLocationRemote.id,
-            heroLocationRemote.longitud,
-            heroLocationRemote.latitud,
+            heroLocationRemote.latitude,
+            heroLocationRemote.longitude,
             heroLocationRemote.dateShow,
         )
     }
