@@ -76,12 +76,6 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         this.map = map
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(
-            MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     private fun setHero(hero: Hero){
