@@ -2,7 +2,6 @@ package com.advanced.advanceddragonball.data.remote
 
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
-import com.advanced.advanceddragonball.domain.Bootcamp
 import okhttp3.Credentials
 import javax.inject.Inject
 

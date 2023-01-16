@@ -2,7 +2,6 @@ package com.advanced.advanceddragonball.utils
 
 import com.advanced.advanceddragonball.data.local.model.HeroLocal
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
-import com.advanced.advanceddragonball.domain.Bootcamp
 import com.advanced.advanceddragonball.domain.Hero
 
 fun generateBootcamps(): List<Bootcamp> {

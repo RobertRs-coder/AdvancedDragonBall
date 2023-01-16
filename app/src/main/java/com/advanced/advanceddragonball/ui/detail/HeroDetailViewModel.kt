@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +31,24 @@ class DetailViewModel @Inject constructor(
             val heroListState = withContext(Dispatchers.IO) {
                 repository.getHeroDetail(hero.name)
             }
+            when(heroListState) {
+                is HeroDetailState.Failure -> Log.d("LOCATIONS","Error al buscar localizaciones")
+                is HeroDetailState.NetworkError -> Log.d("LOCATIONS","Error Network")
+                is HeroDetailState.Success -> {
+                    val hero = heroListState.hero
+                    val locations = withContext(Dispatchers.IO) {
+                        //LLAMAR A LAS LOCALIZACIONES EN EL REPOSITORIO
+                        repository.getLocations(hero.id)
+                    }
+                    hero.locations = locations
+                }
+            }
+
+
             _state.value = heroListState
+
+
+
         }
     }
 }
