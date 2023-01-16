@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id('kotlin-parcelize')
     id("androidx.navigation.safeargs")
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -77,6 +78,9 @@ dependencies {
 
     //DataStore
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // Google maps
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     //Testing
     testImplementation 'junit:junit:4.13.2'
