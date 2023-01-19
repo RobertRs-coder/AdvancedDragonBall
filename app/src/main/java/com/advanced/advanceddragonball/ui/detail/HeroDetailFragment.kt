@@ -52,19 +52,20 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun setHeroFavorite(hero: Hero) {
         when(hero.favorite) {
-            true -> binding.favoriteImage.setImageResource(R.drawable.icon_heart)
-            false -> binding.favoriteImage.setImageResource(R.drawable.icon_heart_empty)
+            true -> binding.favoriteButton.setImageResource(R.drawable.ic_heart_full)
+            false -> binding.favoriteButton.setImageResource(R.drawable.ic_heart_empty)
         }
     }
 
     private fun setListeners(hero: Hero) {
         with(binding) {
-            favoriteImage.setOnClickListener {
+            favoriteButton.setOnClickListener {
                 viewModel.getFavorite()
             }
         }
         setHeroFavorite(hero)
     }
+
     private fun setObservers() {
         viewModel.state.observe(viewLifecycleOwner) {
             when(it) {
@@ -105,13 +106,17 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun zoomToFirstPosition(hero: Hero) {
-        val firstHeroLocation = hero.locations?.first()
-        firstHeroLocation?.apply {
-            val position = LatLng(
-                firstHeroLocation.latitude.toDouble(),
-                firstHeroLocation.longitude.toDouble()
-            )
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
+
+        if (hero.locations?.isNotEmpty() == true) {
+
+            val firstHeroLocation = hero.locations?.first()
+            firstHeroLocation?.apply {
+                val position = LatLng(
+                    firstHeroLocation.latitude.toDouble(),
+                    firstHeroLocation.longitude.toDouble()
+                )
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
+            }
         }
     }
 
