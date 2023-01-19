@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.data.remote
 
+import com.advanced.advanceddragonball.data.remote.request.HeroFavoriteRequest
 import com.advanced.advanceddragonball.data.remote.request.HeroLocationRequest
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
@@ -26,5 +27,9 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun login(email: String, password: String): Result<String?> {
         return runCatching { api.login(Credentials.basic(email, password)) }
+    }
+
+    override suspend fun getFavorite(id: String) {
+        kotlin.runCatching { api.getFavorite(HeroFavoriteRequest(id)) }
     }
 }

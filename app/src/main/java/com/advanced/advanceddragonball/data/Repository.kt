@@ -7,7 +7,7 @@ import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
 import com.advanced.advanceddragonball.ui.login.LoginState
 
-interface Repository{
+interface Repository {
 
     suspend fun getHeroes(): HeroListState
     suspend fun getHeroDetail(name: String): HeroDetailState
@@ -15,5 +15,8 @@ interface Repository{
     suspend fun getHeroLocations(heroId: String): List<HeroLocation>?
 
 //    suspend fun getHeroesWithCache(): HeroListState
+
+    suspend fun getToken(): String?
+    suspend fun getFavorite(id: String)
 
 }

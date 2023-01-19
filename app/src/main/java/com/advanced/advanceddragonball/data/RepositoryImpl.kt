@@ -87,6 +87,14 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
+     override suspend fun getToken(): String? {
+         return dataStore.getToken(TOKEN)
+    }
+
+    override suspend fun getFavorite(id: String) {
+        remoteDataSource.getFavorite(id)
+    }
+
     override suspend fun login(email: String, password: String): LoginState {
 
         val token = dataStore.getToken(TOKEN)

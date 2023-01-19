@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.advanced.advanceddragonball.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -36,6 +37,11 @@ class LoginFragment : Fragment() {
         setObservers()
     }
 
+//    override fun onStart() {
+//        super.onStart()
+//        viewModel.tokenIsEmpty()
+//    }
+
     private fun setListeners() {
         with(binding) {
             loginButton.setOnClickListener {
@@ -46,8 +52,18 @@ class LoginFragment : Fragment() {
         }
     }
 
+
     private fun setObservers() {
-        viewModel.state.observe(viewLifecycleOwner) { it ->
+
+//
+        viewModel.loginState.observe(viewLifecycleOwner) {
+            Log.d("TOKEN EMPTY", "$it")
+            if (it == true) {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHeroListFragment())
+            }
+        }
+
+        viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is LoginState.Success -> {
 

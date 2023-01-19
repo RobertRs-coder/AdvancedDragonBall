@@ -46,19 +46,32 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
         viewModel.getHeroDetail(args.hero)
 
         setUpMap()
+
         setObservers()
-
-
-
     }
 
+    private fun setHeroFavorite(hero: Hero) {
+        when(hero.favorite) {
+            true -> binding.favoriteImage.setImageResource(R.drawable.icon_heart)
+            false -> binding.favoriteImage.setImageResource(R.drawable.icon_heart_empty)
+        }
+    }
 
+    private fun setListeners(hero: Hero) {
+        with(binding) {
+            favoriteImage.setOnClickListener {
+                viewModel.getFavorite()
+            }
+        }
+        setHeroFavorite(hero)
+    }
     private fun setObservers() {
         viewModel.state.observe(viewLifecycleOwner) {
             when(it) {
                 is HeroDetailState.Success -> {
 
                     setHero(it.hero)
+                    setListeners(it.hero)
                     setHeroLocations(it.hero)
                     zoomToFirstPosition(it.hero)
                 }
@@ -86,7 +99,6 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
         binding.descriptionHeroDetail.text = hero.description
     }
 
-
     private fun setHeroLocations(hero: Hero) {
         val heroLocations = hero.locations
         heroLocations?.forEach { map.addMarker(viewModel.getMarker(it)) }
@@ -102,7 +114,6 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

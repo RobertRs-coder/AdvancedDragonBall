@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.advanced.advanceddragonball.data.Repository
+import com.advanced.advanceddragonball.data.local.datastore.PrefsDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,11 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor (
-    private val repository: Repository
+    private val repository: Repository,
 ): ViewModel() {
+
     private val _state = MutableLiveData<LoginState>()
     val state: LiveData<LoginState>
         get() =_state
+
+    private val _loginState = MutableLiveData<Boolean>()
+    val loginState: LiveData<Boolean>
+        get() =_loginState
 
     companion object {
         private const val TAG = "LoginViewModel: "
@@ -49,5 +56,16 @@ class LoginViewModel @Inject constructor (
             return false
         }
         return true
+    }
+    fun tokenIsEmpty() {
+        viewModelScope.launch {
+            val tokenState = withContext(Dispatchers.IO) {
+                val token = repository.getToken()
+
+                return@withContext token?.isEmpty() == true
+            }
+
+            _loginState.value = tokenState
+        }
     }
 }

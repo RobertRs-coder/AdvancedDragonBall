@@ -1,5 +1,6 @@
 package com.advanced.advanceddragonball.data.remote
 
+import com.advanced.advanceddragonball.data.remote.request.HeroFavoriteRequest
 import com.advanced.advanceddragonball.data.remote.request.HeroLocationRequest
 import com.advanced.advanceddragonball.data.remote.request.HeroRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
@@ -20,4 +21,7 @@ interface DragonBallApi {
     suspend fun getHeroLocations(@Body heroRequest: HeroLocationRequest, @Header("Authorization") auth: String): List<HeroLocationRemote>
     @POST("/api/auth/login")
     suspend fun login(@Header("Authorization") auth: String): String
+    @POST("/api/data/herolike")
+    suspend fun getFavorite(@Body favoriteRequest: HeroFavoriteRequest, @Header("Authorization") auth: String)
+
 }
