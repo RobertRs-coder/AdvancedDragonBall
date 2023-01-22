@@ -30,9 +30,20 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id==R.id.LoginFragment || destination.id==R.id.HeroListFragment){
+                supportActionBar?.hide()
+            }
+            else{
+                supportActionBar?.show()
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
