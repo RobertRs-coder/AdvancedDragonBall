@@ -102,15 +102,15 @@ class RepositoryImpl @Inject constructor(
             localDataSource.getHeroes()
         }
 
-        //Change local favorite attribute hero local
+        //Change local favorite attribute in heroes in local database
         var position = 0
-        //Look for the position of the hero in local database
+        //Look for the position of the heroes in local database
         heroesLocal.forEachIndexed { ind, hero ->
             if (hero.id == id) {
                 position = ind
             }
         }
-        //Change value of favorite attribute in this position of the hero in local database
+        //Change value of favorite attribute in this position of the heroes in local database
         val favorite = heroesLocal[position].favorite
         heroesLocal[position].favorite = !favorite
         //Insert this new value in database
@@ -166,7 +166,7 @@ class RepositoryImpl @Inject constructor(
         val result = remoteDataSource.getHeroLocations(heroId, "Bearer $token")
 
         result.onSuccess {
-            //Devolver un mapper con las localizaciones
+            //Return values of Hero Locations maps to show in Presentation
             return it?.let {  locationRemoteToPresentationMapper.map(it) }
         }
         return emptyList()
