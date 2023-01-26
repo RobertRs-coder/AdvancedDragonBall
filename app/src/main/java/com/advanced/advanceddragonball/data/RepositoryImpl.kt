@@ -8,7 +8,6 @@ import com.advanced.advanceddragonball.data.mappers.LocationRemoteToPresentation
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
-import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
 import com.advanced.advanceddragonball.domain.HeroLocation
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
@@ -91,11 +90,11 @@ class RepositoryImpl @Inject constructor(
          return dataStore.getToken(TOKEN)
     }
 
-    override suspend fun getFavorite(id: String) {
+    override suspend fun switchHeroLike(id: String) {
 
         val token = dataStore.getToken(TOKEN)
 
-        remoteDataSource.getFavorite(id, "Bearer $token")
+        remoteDataSource.switchHeroLike(id, "Bearer $token")
     }
 
     override suspend fun login(email: String, password: String): LoginState {

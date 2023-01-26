@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
+import com.advanced.advanceddragonball.data.mappers.LocationRemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.fakes.FakePrefsDataStore
@@ -28,7 +29,7 @@ class RepositoryImplWithFakesTest {
     private val fakeRemoteDataSource = FakeRemoteDataSource()
 
     @Before
-    fun setUpMocks(){
+    fun setUp(){
         localDataSource = mockk()
 
 
@@ -38,12 +39,12 @@ class RepositoryImplWithFakesTest {
             prefsDataStore,
             RemoteToPresentationMapper(),
             RemoteToLocalMapper(),
-            LocalToPresentationMapper()
+            LocalToPresentationMapper(),
+            LocationRemoteToPresentationMapper()
         )
     }
 
     //HeroDetail
-
     @Test
     fun `WHEN getHeroDetail EXPECT success and returns hero detail`() = runTest {
         // GIVEN

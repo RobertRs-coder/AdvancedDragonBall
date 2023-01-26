@@ -1,8 +1,6 @@
 package com.advanced.advanceddragonball.ui.detail
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,12 +42,12 @@ class DetailViewModel @Inject constructor(
                 is HeroDetailState.Failure -> Log.d("LOCATIONS","Error al buscar localizaciones")
                 is HeroDetailState.NetworkError -> Log.d("LOCATIONS","Error Network")
                 is HeroDetailState.Success -> {
-                    val hero = heroListState.hero
+                    val result = heroListState.hero
                     val locations = withContext(Dispatchers.IO) {
                         //LLAMAR A LAS LOCALIZACIONES EN EL REPOSITORIO
-                        repository.getHeroLocations(hero.id)
+                        repository.getHeroLocations(result.id)
                     }
-                    hero.locations = locations
+                    result.locations = locations
                     Log.d("Locations", hero.locations.toString())
                 }
             }
@@ -60,7 +58,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun getMarker(location: HeroLocation): MarkerOptions {
+    fun getHeroLocation(location: HeroLocation): MarkerOptions {
         return MarkerOptions().position(getCoordinates(location)).title(getTitle(location))
     }
     private fun getTitle(location: HeroLocation): String {
@@ -74,12 +72,12 @@ class DetailViewModel @Inject constructor(
         return LatLng(location.latitude.toDouble(), location.longitude.toDouble())
     }
 
-    fun getFavorite() {
+    fun switchHeroLike() {
         val state = state.value as HeroDetailState.Success
         val hero = state.hero
         hero.favorite = !hero.favorite
         viewModelScope.launch {
-            repository.getFavorite(hero.id)
+            repository.switchHeroLike(hero.id)
         }
         viewModelScope.launch(Dispatchers.Main) {
             _state.value = state

@@ -1,7 +1,6 @@
 package com.advanced.advanceddragonball.data
 
 
-import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
 import com.advanced.advanceddragonball.domain.HeroLocation
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
@@ -17,6 +16,6 @@ interface Repository {
 //    suspend fun getHeroesWithCache(): HeroListState
 
     suspend fun getToken(): String?
-    suspend fun getFavorite(id: String)
+    suspend fun switchHeroLike(id: String)
 
 }

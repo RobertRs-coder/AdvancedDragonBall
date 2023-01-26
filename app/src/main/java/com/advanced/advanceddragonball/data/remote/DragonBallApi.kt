@@ -22,6 +22,6 @@ interface DragonBallApi {
     @POST("/api/auth/login")
     suspend fun login(@Header("Authorization") auth: String): String
     @POST("/api/data/herolike")
-    suspend fun getFavorite(@Body favoriteRequest: HeroFavoriteRequest, @Header("Authorization") auth: String)
+    suspend fun switchHeroLike(@Body favoriteRequest: HeroFavoriteRequest, @Header("Authorization") auth: String)
 
 }

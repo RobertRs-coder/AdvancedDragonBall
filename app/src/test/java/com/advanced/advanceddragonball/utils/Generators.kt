@@ -3,10 +3,7 @@ package com.advanced.advanceddragonball.utils
 import com.advanced.advanceddragonball.data.local.model.HeroLocal
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import com.advanced.advanceddragonball.domain.Hero
-
-fun generateBootcamps(): List<Bootcamp> {
-    return (0 until 10).map { Bootcamp("ID: $it", "Name $it") }
-}
+import com.advanced.advanceddragonball.domain.HeroLocation
 
 fun generateHeroesRemote(): List<HeroRemote> {
     return (0 until 10).map {
@@ -41,6 +38,29 @@ fun generateHeroes(): List<Hero> {
             "Photo $it",
             "Description $it",
             false
+        )
+    }
+}
+
+
+fun generateHero(): Hero {
+   return Hero(
+        "ID",
+        "Name",
+        "Photo",
+        "Description",
+        false
+    )
+}
+
+
+fun generateLocations(): List<HeroLocation> {
+    return (0 until 10).map {
+        HeroLocation(
+            "ID: $it",
+            "Longitude: $it",
+            "Latitude: $it",
+            "DateShow: $it"
         )
     }
 }

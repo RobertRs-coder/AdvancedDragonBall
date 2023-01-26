@@ -2,6 +2,7 @@ package com.advanced.advanceddragonball.data
 
 import com.advanced.advanceddragonball.data.local.LocalDataSource
 import com.advanced.advanceddragonball.data.mappers.LocalToPresentationMapper
+import com.advanced.advanceddragonball.data.mappers.LocationRemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToLocalMapper
 import com.advanced.advanceddragonball.data.mappers.RemoteToPresentationMapper
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
@@ -40,7 +41,8 @@ class RepositoryImplWithMocksTest {
             prefsDataStore,
             RemoteToPresentationMapper(),
             RemoteToLocalMapper(),
-            LocalToPresentationMapper()
+            LocalToPresentationMapper(),
+            LocationRemoteToPresentationMapper()
         )
     }
 

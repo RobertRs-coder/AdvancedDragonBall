@@ -31,11 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-
+        //Hide navBar in fragments where you shouldn't go back
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id==R.id.LoginFragment || destination.id==R.id.HeroListFragment){
                 supportActionBar?.hide()

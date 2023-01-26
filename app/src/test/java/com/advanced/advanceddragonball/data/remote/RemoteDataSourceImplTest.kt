@@ -41,4 +41,17 @@ class RemoteDataSourceImplTest: BaseNetworkTest() {
         Truth.assertThat(actual.getOrNull()?.name).isEqualTo("Maestro Roshi")
     }
 
+
+    @Test
+    fun `WHEN getHeroDetail EXPECT success and returns hero detail`() = runTest {
+        // GIVEN
+        remoteDataSourceImpl = RemoteDataSourceImpl(api)
+
+        // WHEN
+        val actual = remoteDataSourceImpl.getHeroDetail("Hero", "TOKEN")
+
+        // THEN
+        Truth.assertThat(actual).isNotNull()
+        Truth.assertThat(actual.getOrNull()?.name).isEqualTo("Maestro Roshi")
+    }
 }

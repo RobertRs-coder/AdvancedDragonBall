@@ -29,7 +29,7 @@ class RemoteDataSourceImpl @Inject constructor(
         return runCatching { api.login(Credentials.basic(email, password)) }
     }
 
-    override suspend fun getFavorite(id: String, auth: String) {
-        kotlin.runCatching { api.getFavorite(HeroFavoriteRequest(id), auth) }
+    override suspend fun switchHeroLike(id: String, auth: String) {
+        kotlin.runCatching { api.switchHeroLike(HeroFavoriteRequest(id), auth) }
     }
 }

@@ -16,7 +16,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,7 +59,7 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
     private fun setListeners(hero: Hero) {
         with(binding) {
             favoriteButton.setOnClickListener {
-                viewModel.getFavorite()
+                viewModel.switchHeroLike()
             }
         }
         setHeroFavorite(hero)
@@ -102,7 +101,7 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun setHeroLocations(hero: Hero) {
         val heroLocations = hero.locations
-        heroLocations?.forEach { map.addMarker(viewModel.getMarker(it)) }
+        heroLocations?.forEach { map.addMarker(viewModel.getHeroLocation(it)) }
     }
 
     private fun zoomToFirstPosition(hero: Hero) {

@@ -1,6 +1,7 @@
 package com.advanced.advanceddragonball.fakes
 
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import retrofit2.HttpException
 import retrofit2.Response
@@ -20,7 +21,18 @@ class FakeRemoteDataSource: RemoteDataSource {
         }
     }
 
+    override suspend fun getHeroLocations(
+        name: String,
+        auth: String
+    ): Result<List<HeroLocationRemote>?> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun login(email: String, password: String): Result<String?> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun switchHeroLike(id: String, auth: String) {
         TODO("Not yet implemented")
     }
 }
