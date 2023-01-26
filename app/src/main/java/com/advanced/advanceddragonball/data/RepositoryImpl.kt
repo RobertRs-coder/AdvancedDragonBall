@@ -97,22 +97,25 @@ class RepositoryImpl @Inject constructor(
         val token = dataStore.getToken(TOKEN)
 
         remoteDataSource.switchHeroLike(id, "Bearer $token")
-        val heroLocal = withContext(Dispatchers.IO) {
+
+        val heroesLocal = withContext(Dispatchers.IO) {
             localDataSource.getHeroes()
         }
 
         //Change local favorite attribute hero local
         var position = 0
-        heroLocal.forEachIndexed { ind, hero ->
+        //Look for the position of the hero in local database
+        heroesLocal.forEachIndexed { ind, hero ->
             if (hero.id == id) {
                 position = ind
             }
         }
-
-        val favorite = heroLocal[position].favorite
-        heroLocal[position].favorite = !favorite
+        //Change value of favorite attribute in this position of the hero in local database
+        val favorite = heroesLocal[position].favorite
+        heroesLocal[position].favorite = !favorite
+        //Insert this new value in database
         withContext(Dispatchers.IO) {
-            localDataSource.insertHeroes(heroLocal)
+            localDataSource.insertHeroes(heroesLocal)
         }
     }
 
@@ -155,7 +158,6 @@ class RepositoryImpl @Inject constructor(
 
         }
     }
-
 
     override suspend fun getHeroLocations(heroId: String): List<HeroLocation>? {
 
