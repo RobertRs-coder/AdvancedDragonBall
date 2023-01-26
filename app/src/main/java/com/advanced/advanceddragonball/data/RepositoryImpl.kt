@@ -12,6 +12,8 @@ import com.advanced.advanceddragonball.domain.HeroLocation
 import com.advanced.advanceddragonball.ui.detail.HeroDetailState
 import com.advanced.advanceddragonball.ui.list.HeroListState
 import com.advanced.advanceddragonball.ui.login.LoginState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -95,6 +97,23 @@ class RepositoryImpl @Inject constructor(
         val token = dataStore.getToken(TOKEN)
 
         remoteDataSource.switchHeroLike(id, "Bearer $token")
+        val heroLocal = withContext(Dispatchers.IO) {
+            localDataSource.getHeroes()
+        }
+
+        //Change local favorite attribute hero local
+        var position = 0
+        heroLocal.forEachIndexed { ind, hero ->
+            if (hero.id == id) {
+                position = ind
+            }
+        }
+
+        val favorite = heroLocal[position].favorite
+        heroLocal[position].favorite = !favorite
+        withContext(Dispatchers.IO) {
+            localDataSource.insertHeroes(heroLocal)
+        }
     }
 
     override suspend fun login(email: String, password: String): LoginState {
