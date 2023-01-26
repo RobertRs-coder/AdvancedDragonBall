@@ -62,6 +62,7 @@ class DetailViewModelTest {
         coEvery { repository.getHeroDetail(any()) } returns HeroDetailState.Success(
             generateHero()
         )
+        coEvery { repository.getHeroLocations("ID") } returns null
 
         // WHEN
         sut.getHeroDetail(Hero("ID", "Name", "Photo", "Description", false))

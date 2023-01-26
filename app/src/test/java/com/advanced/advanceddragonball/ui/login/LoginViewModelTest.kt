@@ -60,11 +60,11 @@ class LoginViewModelTest  {
 
         //Given
         sut = LoginViewModel(repository)
-        coEvery {  repository.getToken() } returns LoginState.Success("TOKEN").toString()
+        coEvery {  repository.login("rrojo.va@gmail.com","123456") } returns LoginState.Success("TOKEN")
 
         //When
         sut.login("rrojo.va@gmail.com", "123456")
-        val actualLiveData = sut.state.getOrAwaitValue(latchCount = 2)
+        val actualLiveData = sut.state.getOrAwaitValue()
 
         //Then
         Truth.assertThat((actualLiveData as LoginState.Success).token).isEqualTo("TOKEN")

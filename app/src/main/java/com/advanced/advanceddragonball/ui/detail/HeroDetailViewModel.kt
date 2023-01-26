@@ -48,7 +48,7 @@ class DetailViewModel @Inject constructor(
                         repository.getHeroLocations(result.id)
                     }
                     result.locations = locations
-                    Log.d("Locations", hero.locations.toString())
+//                    Log.d("Locations", hero.locations.toString())
                 }
             }
 

@@ -101,22 +101,22 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun setHeroLocations(hero: Hero) {
         val heroLocations = hero.locations
-        heroLocations?.forEach { map.addMarker(viewModel.getHeroLocation(it)) }
+        if (hero.locations?.isNotEmpty() == true) {
+            heroLocations?.forEach { map.addMarker(viewModel.getHeroLocation(it)) }
+        }
     }
 
     private fun zoomToFirstPosition(hero: Hero) {
 
-        if (hero.locations?.isNotEmpty() == true) {
-
-            val firstHeroLocation = hero.locations?.first()
-            firstHeroLocation?.apply {
-                val position = LatLng(
-                    firstHeroLocation.latitude.toDouble(),
-                    firstHeroLocation.longitude.toDouble()
-                )
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
-            }
+        val firstHeroLocation = hero.locations?.first()
+        firstHeroLocation?.apply {
+            val position = LatLng(
+                firstHeroLocation.latitude.toDouble(),
+                firstHeroLocation.longitude.toDouble()
+            )
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
         }
+
     }
 
     override fun onDestroyView() {

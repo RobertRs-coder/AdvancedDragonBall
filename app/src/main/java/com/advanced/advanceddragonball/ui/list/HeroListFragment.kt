@@ -36,7 +36,6 @@ class HeroListFragment : Fragment() {
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-
         return binding.root
 
     }

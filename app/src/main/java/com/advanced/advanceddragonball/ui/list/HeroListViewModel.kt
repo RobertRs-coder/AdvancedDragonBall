@@ -26,7 +26,6 @@ class HeroListViewModel @Inject constructor(
         private val TAG = "ListViewModel: "
     }
 
-
      fun getHeroes() {
         viewModelScope.launch {
             val heroes = withContext(Dispatchers.IO) {
