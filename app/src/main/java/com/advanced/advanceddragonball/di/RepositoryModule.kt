@@ -21,12 +21,10 @@ abstract class RepositoryModule {
         repositoryImpl: RepositoryImpl
     ): Repository
 
-
     @Binds
     abstract fun bindLocalDataSource(
         localDataSourceImpl: LocalDataSourceImpl
     ): LocalDataSource
-
 
     @Binds
     abstract fun bindRemoteDataSource(

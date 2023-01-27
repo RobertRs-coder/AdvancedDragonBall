@@ -1,9 +1,6 @@
 package com.advanced.advanceddragonball.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.advanced.advanceddragonball.data.local.model.HeroLocal
 
 @Dao
@@ -16,4 +13,7 @@ interface HeroDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertSuperhero(superHero: HeroLocal)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateHero(hero: HeroLocal)
 }

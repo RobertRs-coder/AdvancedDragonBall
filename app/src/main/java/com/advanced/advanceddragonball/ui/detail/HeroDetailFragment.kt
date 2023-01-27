@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
@@ -66,18 +67,23 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setObservers() {
-        viewModel.state.observe(viewLifecycleOwner) {
-            when(it) {
-                is HeroDetailState.Success -> {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state) {
 
-                    setHero(it.hero)
-                    setListeners(it.hero)
-                    setHeroLocations(it.hero)
-                    zoomToFirstPosition(it.hero)
+                is HeroDetailState.Success -> {
+                    setHero(state.hero)
+                    setListeners(state.hero)
+                    setHeroLocations(state.hero)
+                    zoomToFirstPosition(state.hero)
                 }
 
-                else -> {}
+                is HeroDetailState.Failure -> {
+                    Toast.makeText(requireContext(), state.error, Toast.LENGTH_LONG).show()
+                }
 
+                is HeroDetailState.NetworkError -> {
+                    Toast.makeText(requireContext(), state.code, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

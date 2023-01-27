@@ -13,8 +13,6 @@ interface Repository {
     suspend fun login(email: String, password: String): LoginState
     suspend fun getHeroLocations(heroId: String): List<HeroLocation>?
 
-//    suspend fun getHeroesWithCache(): HeroListState
-
     suspend fun getToken(): String?
     suspend fun switchHeroLike(id: String)
 

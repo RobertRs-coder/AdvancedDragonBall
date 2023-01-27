@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: Repository,
+    private val repository: Repository
 ) : ViewModel() {
 
     private val _state = MutableLiveData<HeroDetailState>()
@@ -44,11 +44,9 @@ class DetailViewModel @Inject constructor(
                 is HeroDetailState.Success -> {
                     val result = heroListState.hero
                     val locations = withContext(Dispatchers.IO) {
-                        //LLAMAR A LAS LOCALIZACIONES EN EL REPOSITORIO
                         repository.getHeroLocations(result.id)
                     }
                     result.locations = locations
-//                    Log.d("Locations", hero.locations.toString())
                 }
             }
 

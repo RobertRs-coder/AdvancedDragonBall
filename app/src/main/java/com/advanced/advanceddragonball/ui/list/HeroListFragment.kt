@@ -48,13 +48,17 @@ class HeroListFragment : Fragment() {
 
             viewModel.state.observe(viewLifecycleOwner){ state ->
                 when(state){
-                    is HeroListState.Failure -> {
-                        Toast.makeText(requireContext(), state.error, Toast.LENGTH_LONG).show()
-                    }
+
                     is HeroListState.Success -> {
                         adapter.submitList(state.heroes)
                     }
+
+                    is HeroListState.Failure -> {
+                        Toast.makeText(requireContext(), state.error, Toast.LENGTH_LONG).show()
+                    }
+
                     is HeroListState.NetworkError -> {
+                        Toast.makeText(requireContext(), state.code, Toast.LENGTH_LONG).show()
                     }
                 }
             }
