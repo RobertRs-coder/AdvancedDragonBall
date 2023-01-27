@@ -1,7 +1,14 @@
 #  DragonBall Advanced App
 
-In this project, I try to learn Hilt
+## Summary
+In this project, I try to create an app to consumes from DragonBall API with local data cahed with ROOm database and using dependency injection with Hilt.
 
+## Key concepts
++ SOLID
++ Clean Architecture
++ Dependency Injection
++ ROOM
++ Hilt
 
-This is the dependency diagram:
+## Dependency diagram
 ![dependency_diagram](./docs/AdvancedDragonBallDependencyFrameworkHiltDiagram.drawio.png)
