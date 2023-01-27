@@ -1,7 +1,7 @@
 #  DragonBall Advanced App
 
 ## Summary
-In this project, I try to create an app to consumes from DragonBall API with local data cahed with ROOm database and using dependency injection with Hilt.
+In this project, I try to create an app to consumes from DragonBall API with local data cached by Room Database and implement dependency injection with Hilt.
 
 ## Key concepts
 + SOLID
