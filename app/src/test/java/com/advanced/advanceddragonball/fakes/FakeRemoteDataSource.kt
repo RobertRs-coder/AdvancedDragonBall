@@ -1,6 +1,8 @@
 package com.advanced.advanceddragonball.fakes
 
+import com.advanced.advanceddragonball.data.remote.DragonBallApi
 import com.advanced.advanceddragonball.data.remote.RemoteDataSource
+import com.advanced.advanceddragonball.data.remote.request.HeroFavoriteRequest
 import com.advanced.advanceddragonball.data.remote.response.HeroLocationRemote
 import com.advanced.advanceddragonball.data.remote.response.HeroRemote
 import retrofit2.HttpException
@@ -35,4 +37,5 @@ class FakeRemoteDataSource: RemoteDataSource {
     override suspend fun switchHeroLike(id: String, auth: String) {
         TODO("Not yet implemented")
     }
+
 }
