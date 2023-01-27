@@ -113,7 +113,10 @@ class RepositoryImpl @Inject constructor(
         //Change value of favorite attribute in this position of the heroes in local database
         val favorite = heroesLocal[position].favorite
         heroesLocal[position].favorite = !favorite
-        //Insert the new hero in database
+        //Insert this new value in database
+//        withContext(Dispatchers.IO) {
+//            localDataSource.insertHeroes(heroesLocal)
+//        }
         withContext(Dispatchers.IO) {
             localDataSource.updateHero(heroesLocal[position])
         }

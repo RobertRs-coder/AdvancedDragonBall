@@ -12,7 +12,6 @@ interface Repository {
     suspend fun getHeroDetail(name: String): HeroDetailState
     suspend fun login(email: String, password: String): LoginState
     suspend fun getHeroLocations(heroId: String): List<HeroLocation>?
-
     suspend fun getToken(): String?
     suspend fun switchHeroLike(id: String)
 

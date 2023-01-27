@@ -35,7 +35,6 @@ class LoginViewModel @Inject constructor (
         if(emailIsValid(email) && passwordIsValid(password)) {
             viewModelScope.launch {
                 val loginState = withContext(Dispatchers.IO) {
-                    //TODO: Repository getToken(email, password)
                     repository.login(email, password)
                 }
                 _state.value = loginState
