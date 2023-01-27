@@ -108,13 +108,15 @@ class HeroDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun zoomToFirstPosition(hero: Hero) {
 
-        val firstHeroLocation = hero.locations?.first()
-        firstHeroLocation?.apply {
-            val position = LatLng(
-                firstHeroLocation.latitude.toDouble(),
-                firstHeroLocation.longitude.toDouble()
-            )
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
+        if (hero.locations?.isNotEmpty() == true) {
+            val firstHeroLocation = hero.locations?.first()
+            firstHeroLocation?.apply {
+                val position = LatLng(
+                    firstHeroLocation.latitude.toDouble(),
+                    firstHeroLocation.longitude.toDouble()
+                )
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6F))
+            }
         }
 
     }
